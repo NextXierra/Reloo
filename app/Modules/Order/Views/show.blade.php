@@ -49,7 +49,7 @@
             <div class="p-4 rounded-[5px] bg-[#F7F6F3] border border-[#EAEAEA] space-y-2 text-xs">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                        <span class="text-[#71717A] block text-[10px] font-mono uppercase tracking-wider">EKSPEDISI LOGISTIK</span>
+                        <span class="text-[#71717A] block text-[10px] font-mono uppercase tracking-wider">Kurir Pengiriman</span>
                         <span class="font-medium text-[#111111]">{{ $order->shipment ? $order->shipment->courier_name : '-' }} ({{ $order->shipment ? $order->shipment->courier_service : '-' }})</span>
                     </div>
                     <div>

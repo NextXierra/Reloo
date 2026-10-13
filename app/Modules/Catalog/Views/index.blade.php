@@ -5,9 +5,9 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
 
-    <!-- Breadcrumb & Header -->
-    <div class="mb-8 pb-4 border-b border-[#EAEAEA]">
-        <nav class="flex items-center gap-2 text-xs text-[#71717A] font-mono mb-2">
+    <!-- Breadcrumb & Filters -->
+    <div class="mb-8 pb-3 border-b border-[#EAEAEA] flex items-center justify-between">
+        <nav class="flex items-center gap-2 text-xs text-[#71717A] font-mono">
             <a href="{{ route('home') }}" class="hover:text-[#111111]">BERANDA</a>
             <span>/</span>
             <span class="text-[#111111] font-semibold">KATALOG</span>
@@ -16,21 +16,14 @@
                 <span class="text-[#111111] uppercase font-semibold">{{ request('category') }}</span>
             @endif
         </nav>
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-                <h1 class="font-serif text-3xl sm:text-4xl text-[#111111] tracking-tight">Katalog Belanja Reloo</h1>
-                <p class="text-xs text-[#71717A] font-mono mt-1">MENAMPILKAN {{ $products->total() }} ITEM TERVERIFIKASI FISIK</p>
-            </div>
 
-            <!-- Active Filters Reset -->
-            @if(request()->hasAny(['q', 'category', 'condition', 'min_price', 'max_price', 'sort']))
-                <div>
-                    <a href="{{ route('catalog.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[5px] border border-[#EAEAEA] bg-white text-xs text-[#8C2220] hover:bg-[#FDEBEC] transition-colors">
-                        <span>&times;</span> Reset Semua Filter
-                    </a>
-                </div>
-            @endif
-        </div>
+        @if(request()->hasAny(['q', 'category', 'condition', 'min_price', 'max_price', 'sort']))
+            <div>
+                <a href="{{ route('catalog.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[5px] border border-[#EAEAEA] bg-white text-xs text-[#8C2220] hover:bg-[#FDEBEC] transition-colors">
+                    <span>&times;</span> Reset Filter
+                </a>
+            </div>
+        @endif
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
@@ -116,9 +109,6 @@
         <main class="lg:col-span-3">
             @if($products->isEmpty())
                 <div class="bg-white rounded-[6px] p-12 border border-[#EAEAEA] text-center">
-                    <div class="font-mono text-xs text-[#71717A] uppercase mb-2">
-                        [DATA NIHIL]
-                    </div>
                     <h3 class="font-serif text-xl text-[#111111] mb-2">Tidak Ada Produk Sesuai Kriteria</h3>
                     <p class="text-xs text-[#52525B] max-w-sm mx-auto mb-6 leading-relaxed">
                         Coba sesuaikan kata kunci pencarian, rentang harga, atau reset filter kategori untuk melihat koleksi lainnya.

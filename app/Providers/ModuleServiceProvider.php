@@ -49,7 +49,7 @@ class ModuleServiceProvider extends ServiceProvider
                     ->group($apiRoutes);
             }
 
-            // 3. Load Views with module slug namespace (e.g. view('catalog::index'), view('cms::render'))
+            // 3. Load Views with module slug namespace (e.g. view('catalog::index'), view('catalog::home'))
             $viewsPath = $moduleDir . '/Views';
             if (File::isDirectory($viewsPath)) {
                 $this->loadViewsFrom($viewsPath, $namespaceSlug);

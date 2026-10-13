@@ -42,8 +42,7 @@ class CartController extends Controller
         if ($request->boolean('buy_now')) {
             return redirect()->route('checkout.index');
         }
-
-        return back()->with('success', 'Produk berhasil ditambahkan ke keranjang belanja!');
+        return back();
     }
 
     public function update(Request $request, int $id): RedirectResponse
@@ -56,8 +55,7 @@ class CartController extends Controller
         $sessionId = session()->getId();
 
         $this->cartService->updateQuantity($id, (int) $validated['quantity'], $userId, $sessionId);
-
-        return back()->with('success', 'Kuantitas keranjang berhasil diperbarui.');
+        return back();
     }
 
     public function destroy(int $id): RedirectResponse
@@ -66,8 +64,7 @@ class CartController extends Controller
         $sessionId = session()->getId();
 
         $this->cartService->removeItem($id, $userId, $sessionId);
-
-        return back()->with('success', 'Item berhasil dihapus dari keranjang.');
+        return back();
     }
 
     public function clear(): RedirectResponse
@@ -76,7 +73,6 @@ class CartController extends Controller
         $sessionId = session()->getId();
 
         $this->cartService->clearCart($userId, $sessionId);
-
-        return back()->with('success', 'Seluruh isi keranjang berhasil dikosongkan.');
+        return back();
     }
 }

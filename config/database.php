@@ -35,7 +35,16 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
-            'database' => (env('DB_DATABASE') === 'aimeos' || !env('DB_DATABASE')) ? database_path('database.sqlite') : (str_ends_with(env('DB_DATABASE'), '.sqlite') ? base_path(env('DB_DATABASE')) : env('DB_DATABASE')),
+            'database' => (function () {
+                $db = $_ENV['DB_DATABASE'] ?? getenv('DB_DATABASE') ?: env('DB_DATABASE');
+                if ($db === ':memory:') {
+                    return ':memory:';
+                }
+                if ($db === 'aimeos' || !$db) {
+                    return database_path('database.sqlite');
+                }
+                return str_ends_with($db, '.sqlite') ? base_path($db) : $db;
+            })(),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
             'busy_timeout' => null,

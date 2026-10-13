@@ -5,9 +5,8 @@
 @section('content')
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <div class="mb-8 pb-4 border-b border-[#EAEAEA]">
-        <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-1">MANAJEMEN TRANSAKSI</span>
         <h1 class="font-serif text-3xl sm:text-4xl text-[#111111] tracking-tight">Riwayat Pesanan Saya</h1>
-        <p class="text-xs text-[#52525B] mt-1">Pantau status transaksi, resi ekspedisi resmi, dan arsip pembelian barang terkurasi.</p>
+        <p class="text-xs text-[#52525B] mt-1">Daftar riwayat transaksi pesanan Anda.</p>
     </div>
 
     <!-- Status Filter Tabs -->
@@ -35,7 +34,6 @@
     <!-- Orders List -->
     @if($orders->isEmpty())
         <div class="bg-white rounded-[6px] p-12 border border-[#EAEAEA] text-center max-w-md mx-auto">
-            <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-2">[NIHIL]</span>
             <h3 class="font-serif text-xl text-[#111111] mb-2">Belum Ada Pesanan</h3>
             <p class="text-xs text-[#52525B] mb-6 leading-relaxed">Anda belum memiliki riwayat transaksi pada filter status yang dipilih.</p>
             <a href="{{ route('catalog.index') }}" class="inline-flex items-center justify-center px-4 py-2 rounded-[5px] bg-[#111111] text-white text-xs font-medium hover:bg-[#27272A] transition-colors whitespace-nowrap">

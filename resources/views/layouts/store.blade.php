@@ -80,10 +80,8 @@
 
                 <!-- Section 1 (Left): Clean Reloo Wordmark & Core Links -->
                 <div class="flex items-center gap-8">
-                    <a href="{{ route('home') }}" class="flex items-center select-none group focus:outline-none focus:ring-1 focus:ring-[#111111] rounded px-1">
-                        <span class="text-xl font-extrabold tracking-tight text-[#111111] font-sans flex items-center">
-                            REL<span class="inline-block w-2.5 h-2.5 rounded-full bg-[#6828FF] ml-0.5 mr-0.5"></span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#FA26A0]"></span>
-                        </span>
+                    <a href="{{ route('home') }}" class="flex items-center select-none group focus:outline-none focus:ring-1 focus:ring-[#111111] rounded py-1">
+                        <img src="{{ asset('images/brand/reloo-horizontal.png') }}" alt="Reloo" class="h-6 sm:h-7 w-auto object-contain">
                     </a>
 
                     <!-- Navigation Links -->
@@ -113,11 +111,11 @@
                 <!-- Section 2 (Center): Search Input -->
                 <div class="flex-1 max-w-md hidden sm:block">
                     <form action="{{ url('/catalog') }}" method="GET">
-                        <div class="relative">
-                            <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari produk, merek, atau kategori..." class="w-full pl-9 pr-4 py-1.5 text-xs bg-[#F7F6F3] border border-[#EAEAEA] rounded-[5px] text-[#111111] placeholder:text-[#A1A1AA] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] focus:border-[#111111] transition-colors">
-                            <span class="absolute left-3 top-2 text-[#71717A]">
+                        <div class="relative flex items-center">
+                            <span class="absolute left-3 text-[#71717A] pointer-events-none">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                             </span>
+                            <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari produk, merek, atau kategori..." class="w-full pl-9 pr-4 py-1.5 text-xs bg-[#F7F6F3] border border-[#EAEAEA] rounded-[5px] text-[#111111] placeholder:text-[#A1A1AA] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] focus:border-[#111111] transition-colors">
                         </div>
                     </form>
                 </div>
@@ -190,28 +188,14 @@
         </div>
     </header>
 
-    <!-- Flash Notifications -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">
-        @if(session('success'))
-            <div class="p-3 mb-4 text-xs text-[#26542A] rounded-[5px] bg-[#EDF3EC] border border-[#D1E2CF] flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <span class="font-mono uppercase font-bold tracking-wider">[SUKSES]</span>
-                    <span class="font-medium">{{ session('success') }}</span>
-                </div>
-                <button type="button" onclick="this.parentElement.remove()" class="text-[#26542A] hover:text-[#111111] text-base leading-none font-bold">&times;</button>
-            </div>
-        @endif
-
-        @if(session('error'))
+    @if(session('error'))
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">
             <div class="p-3 mb-4 text-xs text-[#8C2220] rounded-[5px] bg-[#FDEBEC] border border-[#F8C8CA] flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <span class="font-mono uppercase font-bold tracking-wider">[PERHATIAN]</span>
-                    <span class="font-medium">{{ session('error') }}</span>
-                </div>
-                <button type="button" onclick="this.parentElement.remove()" class="text-[#8C2220] hover:text-[#111111] text-base leading-none font-bold">&times;</button>
+                <span class="font-medium">{{ session('error') }}</span>
+                <button type="button" onclick="this.parentElement.parentElement.remove()" class="text-[#8C2220] hover:text-[#111111] text-base leading-none font-bold">&times;</button>
             </div>
-        @endif
-    </div>
+        </div>
+    @endif
 
     <!-- Main Content Area -->
     <main class="flex-grow">
@@ -225,9 +209,7 @@
                 <!-- Col 1: Brand & Contact -->
                 <div class="space-y-3">
                     <div class="flex items-center select-none">
-                        <span class="text-xl font-extrabold tracking-tight text-[#111111] font-sans flex items-center">
-                            REL<span class="inline-block w-2.5 h-2.5 rounded-full bg-[#6828FF] ml-0.5 mr-0.5"></span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#FA26A0]"></span>
-                        </span>
+                        <img src="{{ asset('images/brand/reloo-horizontal.png') }}" alt="Reloo" class="h-6 w-auto object-contain">
                     </div>
                     <p class="text-xs text-[#52525B] leading-relaxed">
                         Marketplace e-commerce produk pilihan dan preloved berkualitas.
@@ -264,9 +246,9 @@
                 <div>
                     <h5 class="text-xs font-mono uppercase tracking-wider text-[#111111] mb-3">Tentang Reloo</h5>
                     <ul class="space-y-2 text-xs text-[#52525B]">
-                        <li><a href="{{ url('/p/home') }}" class="hover:text-[#111111] transition-colors">Tentang Kami</a></li>
-                        <li><a href="{{ url('/catalog') }}" class="hover:text-[#111111] transition-colors">Syarat & Ketentuan</a></li>
-                        <li><a href="{{ url('/catalog') }}" class="hover:text-[#111111] transition-colors">Kebijakan Privasi</a></li>
+                        <li><a href="{{ url('/catalog') }}" class="hover:text-[#111111] transition-colors">Katalog</a></li>
+                        <li><a href="{{ url('/cart') }}" class="hover:text-[#111111] transition-colors">Keranjang</a></li>
+                        <li><a href="{{ url('/catalog') }}" class="hover:text-[#111111] transition-colors">Bantuan</a></li>
                     </ul>
                 </div>
             </div>

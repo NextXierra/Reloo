@@ -80,7 +80,7 @@
             <img src="{{ asset('images/brand/reloo-icon.png') }}" alt="Reloo Icon" class="w-7 h-7 object-contain rounded">
             <div>
                 <div class="flex items-center gap-1.5 leading-none">
-                    <span class="text-sm font-extrabold tracking-tight text-white font-sans">REL<span class="inline-block w-2 h-2 rounded-full bg-[#6828FF] ml-0.5 mr-0.5"></span><span class="inline-block w-2 h-2 rounded-full bg-[#FA26A0]"></span></span>
+                    <img src="{{ asset('images/brand/reloo-horizontal-white.png') }}" alt="Reloo" class="h-4 w-auto object-contain">
                 </div>
                 <span class="text-[9px] font-mono tracking-widest text-[#71717A] uppercase block mt-0.5">STUDIO ADMIN</span>
             </div>
@@ -94,19 +94,9 @@
                 <span>Dashboard</span>
             </a>
 
-            <!-- Section 01: Konten -->
+            <!-- Section 01: Katalog -->
             <div class="pt-4 pb-1 px-3 text-[10px] font-mono uppercase tracking-wider text-[#71717A]">
-                01 / VISUAL CMS
-            </div>
-
-            <a href="{{ route('admin.cms.index') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-[5px] transition-colors {{ request()->is('admin/cms*') ? 'bg-[#27272A] text-white font-medium' : 'text-[#A1A1AA] hover:text-white hover:bg-[#1C1C1F]' }}">
-                <svg class="w-4 h-4 text-[#71717A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
-                <span>Visual Builder (GrapesJS)</span>
-            </a>
-
-            <!-- Section 02: Katalog -->
-            <div class="pt-4 pb-1 px-3 text-[10px] font-mono uppercase tracking-wider text-[#71717A]">
-                02 / KATALOG
+                01 / KATALOG
             </div>
 
             <a href="{{ url('/admin/categories') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-[5px] transition-colors {{ request()->is('admin/categories*') ? 'bg-[#27272A] text-white font-medium' : 'text-[#A1A1AA] hover:text-white hover:bg-[#1C1C1F]' }}">
@@ -119,9 +109,9 @@
                 <span>Kelola Produk</span>
             </a>
 
-            <!-- Section 03: Fulfillment -->
+            <!-- Section 02: Fulfillment -->
             <div class="pt-4 pb-1 px-3 text-[10px] font-mono uppercase tracking-wider text-[#71717A]">
-                03 / PESANAN
+                02 / PESANAN
             </div>
 
             <a href="{{ url('/admin/orders') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-[5px] transition-colors {{ request()->is('admin/orders*') ? 'bg-[#27272A] text-white font-medium' : 'text-[#A1A1AA] hover:text-white hover:bg-[#1C1C1F]' }}">
@@ -164,7 +154,6 @@
             @if(session('success'))
                 <div class="p-3 mb-6 text-xs text-[#26542A] rounded-[5px] bg-[#EDF3EC] border border-[#D1E2CF] flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <span class="font-mono uppercase font-bold tracking-wider">[SUKSES]</span>
                         <span class="font-medium">{{ session('success') }}</span>
                     </div>
                     <button type="button" onclick="this.parentElement.remove()" class="text-[#26542A] hover:text-[#111111] text-base leading-none font-bold">&times;</button>
@@ -174,7 +163,6 @@
             @if(session('error'))
                 <div class="p-3 mb-6 text-xs text-[#8C2220] rounded-[5px] bg-[#FDEBEC] border border-[#F8C8CA] flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <span class="font-mono uppercase font-bold tracking-wider">[PERHATIAN]</span>
                         <span class="font-medium">{{ session('error') }}</span>
                     </div>
                     <button type="button" onclick="this.parentElement.remove()" class="text-[#8C2220] hover:text-[#111111] text-base leading-none font-bold">&times;</button>

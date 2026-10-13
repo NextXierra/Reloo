@@ -62,10 +62,10 @@ class LoginController extends Controller
         $user = Auth::user();
 
         if ($user->isAdmin()) {
-            return redirect()->intended('/admin')->with('success', 'Selamat datang kembali di Admin Panel, ' . $user->name . '!');
+            return redirect()->intended('/admin');
         }
 
-        return redirect()->intended('/')->with('success', 'Berhasil masuk. Selamat berbelanja, ' . $user->name . '!');
+        return redirect()->intended('/');
     }
 
     public function logout(Request $request): RedirectResponse
@@ -74,6 +74,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Anda telah berhasil keluar dari akun.');
+        return redirect('/');
     }
 }

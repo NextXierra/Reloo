@@ -137,8 +137,9 @@
                     </div>
                 </form>
             @else
-                <div class="p-4 rounded-[5px] bg-[#FDEBEC] border border-[#F8C8CA] text-[#8C2220] text-xs font-mono">
-                    [STOK HABIS] Produk ini telah terjual. Silakan jelajahi katalog untuk menemukan produk serupa.
+                <div class="p-4 rounded-[5px] bg-[#FDEBEC] border border-[#F8C8CA] text-[#8C2220] text-xs">
+                    <strong class="font-semibold block mb-0.5">Stok Habis</strong>
+                    Produk ini telah terjual. Silakan jelajahi katalog untuk menemukan produk serupa.
                 </div>
             @endif
 

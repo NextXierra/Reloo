@@ -17,18 +17,16 @@
         <!-- Left: Payment Action Box (2 Cols) -->
         <div class="md:col-span-2 space-y-6">
 
-            @if($order->payment->payment_gateway === 'qrisly')
-                <!-- RajaOngkir Qrisly Dynamic QRIS -->
-                <div class="bg-white rounded-[6px] p-6 sm:p-8 border border-[#EAEAEA] space-y-6 text-center">
-                    <div class="pb-4 border-b border-[#EAEAEA]">
-                        <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-1">GERBANG PEMBAYARAN QRIS NASIONAL</span>
-                        <h2 class="font-serif text-xl text-[#111111]">Pindai Kode QRIS untuk Membayar</h2>
-                        <p class="text-xs text-[#52525B] mt-0.5">Mendukung BCA, Mandiri, BRI, BNI, GoPay, OVO, DANA, dan ShopeePay</p>
-                    </div>
+            <!-- RajaOngkir Qrisly Dynamic QRIS -->
+            <div class="bg-white rounded-[6px] p-6 sm:p-8 border border-[#EAEAEA] space-y-6 text-center">
+                <div class="pb-4 border-b border-[#EAEAEA]">
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-1">Pembayaran QRIS</span>
+                    <h2 class="font-serif text-xl text-[#111111]">Pindai Kode QRIS untuk Membayar</h2>
+                </div>
 
                     @if($order->payment->payment_status === 'paid')
                         <div class="p-5 rounded-[5px] bg-[#EDF3EC] border border-[#D1E2CF] text-[#26542A] text-xs font-mono">
-                            <strong class="block text-sm font-bold mb-1">[LUNAS · PEMBAYARAN TERKONFIRMASI]</strong>
+                        <strong class="block text-sm font-bold mb-1">Pembayaran Berhasil Dikonfirmasi</strong>
                             Pesanan Anda telah berhasil diverifikasi oleh sistem dan sedang disiapkan oleh kurator untuk pengiriman.
                         </div>
                     @else
@@ -54,17 +52,8 @@
                                         Batas Waktu: {{ $qrisData['expiry_time'] }}
                                     </div>
                                 @endif
-                                <span class="font-mono text-[10px] text-[#71717A] block">Transfer tepat hingga 3 digit terakhir untuk verifikasi instan</span>
-                            </div>
-
-                            <div class="p-4 bg-[#F7F6F3] rounded-[5px] border border-[#EAEAEA] text-xs text-[#52525B] max-w-sm text-left space-y-1">
-                                <span class="font-medium text-[#111111] block mb-1">Panduan Pembayaran:</span>
-                                <div>1. Buka aplikasi m-Banking atau dompet digital Anda.</div>
-                                <div>2. Pilih menu Bayar / Scan QRIS.</div>
-                                <div>3. Arahkan kamera ke kode QR di atas.</div>
-                                <div>4. Konfirmasi pembayaran. Halaman akan menyinkronkan status otomatis.</div>
-                            </div>
                         </div>
+                    </div>
 
                         <!-- Realtime Polling & Actions -->
                         <div class="space-y-3 pt-4 border-t border-[#EAEAEA]">
@@ -80,75 +69,7 @@
                             </div>
                         </div>
                     @endif
-                </div>
-
-            @else
-                <!-- Manual Bank Transfer -->
-                <div class="bg-white rounded-[6px] p-6 sm:p-8 border border-[#EAEAEA] space-y-6">
-                    <div class="pb-3 border-b border-[#EAEAEA]">
-                        <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-1">VERIFIKASI MANUAL</span>
-                        <h2 class="font-serif text-xl text-[#111111]">Transfer Rekening Bank Resmi</h2>
-                        <p class="text-xs text-[#52525B]">Transfer langsung ke salah satu rekening terverifikasi PT Reloo Marketplace Indonesia.</p>
-                    </div>
-
-                    <!-- Bank Accounts -->
-                    <div class="space-y-3">
-                        <div class="p-4 rounded-[5px] bg-[#F7F6F3] border border-[#EAEAEA] flex items-center justify-between">
-                            <div>
-                                <span class="text-[10px] font-mono uppercase text-[#71717A] tracking-wider block">BANK BCA</span>
-                                <span class="font-mono text-base font-semibold text-[#111111]">8830-1234-5678</span>
-                                <span class="text-xs text-[#52525B] block">a.n. PT Reloo Marketplace Indonesia</span>
-                            </div>
-                            <button type="button" onclick="navigator.clipboard.writeText('883012345678'); alert('Nomor rekening BCA disalin.');" class="px-3 py-1.5 rounded-[4px] border border-[#EAEAEA] text-xs font-mono text-[#111111] hover:bg-white bg-white/80 transition-colors">
-                                Salin
-                            </button>
-                        </div>
-
-                        <div class="p-4 rounded-[5px] bg-[#F7F6F3] border border-[#EAEAEA] flex items-center justify-between">
-                            <div>
-                                <span class="text-[10px] font-mono uppercase text-[#71717A] tracking-wider block">BANK MANDIRI</span>
-                                <span class="font-mono text-base font-semibold text-[#111111]">137-00-9876543-2</span>
-                                <span class="text-xs text-[#52525B] block">a.n. PT Reloo Marketplace Indonesia</span>
-                            </div>
-                            <button type="button" onclick="navigator.clipboard.writeText('1370098765432'); alert('Nomor rekening Mandiri disalin.');" class="px-3 py-1.5 rounded-[4px] border border-[#EAEAEA] text-xs font-mono text-[#111111] hover:bg-white bg-white/80 transition-colors">
-                                Salin
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Existing Proof Preview -->
-                    @if($order->payment->payment_proof)
-                        <div class="p-4 rounded-[5px] bg-[#F7F6F3] border border-[#EAEAEA] space-y-3">
-                            <div class="flex items-center justify-between">
-                                <span class="font-mono text-xs text-[#111111]">BUKTI TRANSFER TERUNGGAH:</span>
-                                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase border {{ $order->payment->payment_status_badge['color'] }}">
-                                    {{ $order->payment->payment_status_badge['label'] }}
-                                </span>
-                            </div>
-                            <div class="w-32 h-32 rounded-[4px] overflow-hidden border border-[#EAEAEA] bg-white p-1">
-                                <img src="{{ $order->payment->payment_proof_url }}" alt="Bukti Transfer" class="w-full h-full object-cover rounded-[2px]">
-                            </div>
-                        </div>
-                    @endif
-
-                    <!-- Upload Proof Form -->
-                    @if($order->payment->payment_status !== 'paid')
-                        <div class="pt-4 border-t border-[#EAEAEA]">
-                            <h3 class="font-mono text-xs uppercase tracking-wider text-[#111111] mb-2">Unggah Struk Bukti Transfer</h3>
-                            <form method="POST" action="{{ route('payment.manual.upload', $order->order_number) }}" enctype="multipart/form-data" class="space-y-4">
-                                @csrf
-                                <div>
-                                    <input type="file" name="payment_proof" accept="image/*" required class="w-full text-xs text-[#52525B] file:mr-3 file:py-2 file:px-3 file:rounded-[4px] file:border file:border-[#EAEAEA] file:text-xs file:font-medium file:bg-[#F7F6F3] file:text-[#111111] hover:file:bg-[#EAEAEA] file:cursor-pointer cursor-pointer">
-                                </div>
-                                <button type="submit" class="w-full py-2.5 rounded-[5px] font-medium bg-[#111111] hover:bg-[#27272A] text-white text-xs transition-colors whitespace-nowrap">
-                                    Kirim Bukti Pembayaran
-                                </button>
-                            </form>
-                        </div>
-                    @endif
-
-                </div>
-            @endif
+            </div>
 
         </div>
 

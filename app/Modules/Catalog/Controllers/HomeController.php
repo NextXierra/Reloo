@@ -21,6 +21,19 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        return view('catalog::home', compact('categories', 'featuredProducts'));
+        $spotlightProduct = $featuredProducts->first();
+
+        $totalProducts = Product::where('is_active', true)->count();
+        $likeNewCount = Product::where('is_active', true)->where('condition', 'like_new')->count();
+        $brandNewCount = Product::where('is_active', true)->where('condition', 'new')->count();
+
+        return view('catalog::home', compact(
+            'categories',
+            'featuredProducts',
+            'spotlightProduct',
+            'totalProducts',
+            'likeNewCount',
+            'brandNewCount'
+        ));
     }
 }

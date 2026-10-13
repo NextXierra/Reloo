@@ -95,8 +95,8 @@
                             </div>
                         </div>
                     @empty
-                        <div class="text-center py-8 text-xs font-mono text-[#71717A] bg-[#F7F6F3] rounded-[5px] border border-dashed border-[#EAEAEA]">
-                            [BELUM ADA ALAMAT TERSIMPAN]
+                        <div class="text-center py-8 text-xs text-[#71717A] bg-[#F7F6F3] rounded-[5px] border border-dashed border-[#EAEAEA]">
+                            Belum ada alamat pengiriman yang tersimpan.
                         </div>
                     @endforelse
                 </div>

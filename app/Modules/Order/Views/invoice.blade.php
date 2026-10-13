@@ -245,7 +245,7 @@
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--color-rule);">
             <div>
                 <span class="verification-stamp">
-                    [TERVERIFIKASI OTOMATIS OLEH RELOO]
+                    DOKUMEN RESMI TERVERIFIKASI
                 </span>
                 <p style="font-size: 10px; color: #71717A; margin-top: 6px; margin-bottom: 0;">
                     Dokumen ini adalah bukti transaksi sah yang diterbitkan oleh sistem komputerisasi Reloo.

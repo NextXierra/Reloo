@@ -45,7 +45,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return back()->with('success', 'Profil Anda berhasil diperbarui.');
+        return back();
     }
 
     public function storeAddress(Request $request): RedirectResponse
@@ -85,7 +85,7 @@ class ProfileController extends Controller
             'is_default' => $isDefault,
         ]);
 
-        return back()->with('success', 'Alamat pengiriman baru berhasil ditambahkan.');
+        return back();
     }
 
     public function deleteAddress(int $id): RedirectResponse
@@ -101,6 +101,6 @@ class ProfileController extends Controller
             }
         }
 
-        return back()->with('success', 'Alamat pengiriman berhasil dihapus.');
+        return back();
     }
 }

@@ -7,10 +7,8 @@
     <div class="bg-white rounded-[6px] p-8 border border-[#EAEAEA]">
         <!-- Brand Header -->
         <div class="text-center mb-8">
-            <div class="inline-flex items-center gap-1.5 mb-3 select-none">
-                <span class="text-2xl font-black tracking-tight text-[#111111] font-sans flex items-center">
-                    REL<span class="inline-block w-2.5 h-2.5 rounded-full bg-[#6828FF] ml-0.5 mr-0.5"></span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#FA26A0]"></span>
-                </span>
+            <div class="mb-4 flex justify-center select-none">
+                <img src="{{ asset('images/brand/reloo-horizontal.png') }}" alt="Reloo" class="h-6 sm:h-7 w-auto object-contain mx-auto">
             </div>
             <h1 class="font-serif text-2xl text-[#111111] tracking-tight">Selamat Datang Kembali</h1>
             <p class="text-xs text-[#52525B] mt-1">Masuk ke akun Anda untuk bertransaksi aman di Reloo.</p>
@@ -52,14 +50,6 @@
             </button>
         </form>
 
-        <!-- Demo Accounts Hint -->
-        <div class="mt-6 p-3.5 rounded-[4px] bg-[#F7F6F3] border border-[#EAEAEA] text-[11px] font-mono text-[#52525B]">
-            <span class="font-bold text-[#111111] block mb-1 uppercase tracking-wider">AKUN UJI COBA (SANDBOX):</span>
-            <div class="space-y-0.5">
-                <div>Admin: <code class="text-[#111111]">admin@reloo.id</code> / <code class="text-[#71717A]">password</code></div>
-                <div>User: <code class="text-[#111111]">user@reloo.id</code> / <code class="text-[#71717A]">password</code></div>
-            </div>
-        </div>
 
         <!-- Footer Link -->
         <div class="mt-6 text-center text-xs text-[#71717A]">

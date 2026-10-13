@@ -12,18 +12,18 @@
                 STUDIO ADMINISTRASI RELOO
             </span>
             <h2 class="font-serif text-2xl text-[#111111] tracking-tight mb-1">Ringkasan Operasional & Analitik</h2>
-            <p class="text-xs text-[#52525B] max-w-xl leading-relaxed">
-                Pantau omset harian, verifikasi pelunasan QRIS dan transfer manual, kelola stok katalog produk, serta publikasikan tata letak visual landing page.
-            </p>
-        </div>
-        <div class="flex items-center gap-2 flex-wrap">
-            <a href="{{ route('admin.cms.index') }}" class="px-4 py-2 rounded-[5px] bg-[#111111] hover:bg-[#27272A] text-white font-medium text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap">
-                <span>Visual Builder GrapesJS</span>
-            </a>
-            <a href="{{ route('admin.products.create') }}" class="px-4 py-2 rounded-[5px] border border-[#EAEAEA] hover:bg-[#F7F6F3] text-[#111111] font-medium text-xs transition-colors whitespace-nowrap">
-                + Tambah Produk
-            </a>
-        </div>
+             <p class="text-xs text-[#52525B] max-w-xl leading-relaxed">
+                 Pantau omset harian, verifikasi pelunasan QRIS dan transfer manual, kelola stok katalog produk, serta pantau pemenuhan pesanan pelanggan.
+             </p>
+         </div>
+         <div class="flex items-center gap-2 flex-wrap">
+             <a href="{{ route('home') }}" target="_blank" class="px-4 py-2 rounded-[5px] border border-[#EAEAEA] hover:bg-[#F7F6F3] text-[#111111] font-medium text-xs transition-colors whitespace-nowrap">
+                 Lihat Etalase Publik &nearr;
+             </a>
+             <a href="{{ route('admin.products.create') }}" class="px-4 py-2 rounded-[5px] bg-[#111111] hover:bg-[#27272A] text-white font-medium text-xs transition-colors whitespace-nowrap">
+                 + Tambah Produk
+             </a>
+         </div>
     </div>
 
     <!-- Stat Metric Cards (4 Bento Hairline Cards) -->

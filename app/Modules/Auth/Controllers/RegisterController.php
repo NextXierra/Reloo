@@ -49,7 +49,6 @@ class RegisterController extends Controller
         } catch (\Throwable $e) {
             // Cart merge fallback
         }
-
-        return redirect('/')->with('success', 'Akun Anda berhasil didaftarkan! Selamat datang di Reloo.');
+        return redirect('/');
     }
 }

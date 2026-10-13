@@ -7,10 +7,8 @@
     <div class="bg-white rounded-[6px] p-8 border border-[#EAEAEA]">
         <!-- Brand Header -->
         <div class="text-center mb-8">
-            <div class="inline-flex items-center gap-1.5 mb-3 select-none">
-                <span class="text-2xl font-black tracking-tight text-[#111111] font-sans flex items-center">
-                    REL<span class="inline-block w-2.5 h-2.5 rounded-full bg-[#6828FF] ml-0.5 mr-0.5"></span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#FA26A0]"></span>
-                </span>
+            <div class="mb-4 flex justify-center select-none">
+                <img src="{{ asset('images/brand/reloo-horizontal.png') }}" alt="Reloo" class="h-6 sm:h-7 w-auto object-contain mx-auto">
             </div>
             <h1 class="font-serif text-2xl text-[#111111] tracking-tight">Daftar Akun Baru</h1>
             <p class="text-xs text-[#52525B] mt-1">Mulai belanja dan temukan barang preloved terkurasi.</p>

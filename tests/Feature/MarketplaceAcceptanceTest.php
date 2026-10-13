@@ -8,12 +8,12 @@ use App\Modules\Cart\Models\CartItem;
 use App\Modules\Cart\Services\CartService;
 use App\Modules\Catalog\Models\Category;
 use App\Modules\Catalog\Models\Product;
-use App\Modules\Cms\Models\CmsPage;
 use App\Modules\Order\Models\Order;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -30,7 +30,7 @@ class MarketplaceAcceptanceTest extends TestCase
     }
 
     /**
-     * TC-01: Database SQLite & Migrations
+     * TC-01: Database SQLite & Migrations (Zero CMS Tables)
      */
     public function test_tc01_database_sqlite_and_seeders(): void
     {
@@ -38,7 +38,7 @@ class MarketplaceAcceptanceTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => 'user@reloo.id', 'role' => 'customer']);
         $this->assertGreaterThanOrEqual(5, Category::count());
         $this->assertGreaterThanOrEqual(8, Product::count());
-        $this->assertDatabaseHas('cms_pages', ['slug' => 'home', 'is_homepage' => 1]);
+        $this->assertFalse(Schema::hasTable('cms_pages'), "Tabel cms_pages harus dieliminasi total.");
     }
 
     /**
@@ -63,9 +63,6 @@ class MarketplaceAcceptanceTest extends TestCase
             'order.index',
             'order.show',
             'admin.dashboard',
-            'admin.cms.index',
-            'admin.cms.builder',
-            'admin.cms.save',
             'admin.products.index',
             'admin.categories.index',
             'admin.orders.index',
@@ -74,50 +71,70 @@ class MarketplaceAcceptanceTest extends TestCase
         foreach ($expectedRoutes as $routeName) {
             $this->assertTrue(Route::has($routeName), "Route '{$routeName}' must be registered by HMVC provider.");
         }
+
+        $cmsRoutes = [
+            'admin.cms.index',
+            'admin.cms.builder',
+            'admin.cms.save',
+        ];
+
+        foreach ($cmsRoutes as $routeName) {
+            $this->assertFalse(Route::has($routeName), "Route CMS '{$routeName}' tidak boleh terdaftar.");
+        }
     }
 
     /**
-     * TC-03: Visual Builder GrapesJS Workspace
+     * TC-03: Native Storefront Hallmark Homepage
      */
-    public function test_tc03_visual_builder_grapesjs_workspace(): void
+    public function test_tc03_native_storefront_hallmark_homepage(): void
     {
-        $admin = User::where('role', 'admin')->first();
-        $page = CmsPage::where('slug', 'home')->first();
-
-        $response = $this->actingAs($admin)->get(route('admin.cms.builder', $page->id));
+        $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('Visual Page Builder');
-        $response->assertSee('reloo-gjs-blocks.js');
-        $response->assertSee('Blok E-Commerce');
+        $response->assertViewIs('catalog::home');
+        $response->assertDontSee('grapesjs');
+        $response->assertDontSee('reloo-gjs-blocks.js');
+
+        // Verify user requested removals (Image #1, #2, #3, #4)
+        $response->assertDontSee('⌘K');
+        $response->assertDontSee('[01] VERIFIKASI FISIK');
+        $response->assertDontSee('MANIFESTO KURASI RELOO');
+        $response->assertDontSee('hero-carousel-counter');
+        $response->assertDontSee('hero-prev-btn');
+        $response->assertDontSee('hero-next-btn');
+
+        // Verify wide buttonless Hero Banner products carousel
+        $response->assertSee('hero-carousel');
+        $response->assertSee('hero-slide');
+        $response->assertSee('hero-carousel-indicators');
+
+        $activeProduct = Product::where('is_active', true)->first();
+        if ($activeProduct) {
+            $response->assertSee($activeProduct->name);
+        }
     }
 
     /**
-     * TC-04: Simpan & Render Halaman GrapesJS
+     * TC-04: Native Storefront Catalog Filtering and Spotlight
      */
-    public function test_tc04_grapesjs_save_and_public_render(): void
+    public function test_tc04_native_storefront_catalog_filtering_and_spotlight(): void
     {
-        $admin = User::where('role', 'admin')->first();
-        $page = CmsPage::where('slug', 'home')->first();
+        // Test category filtering on catalog
+        $category = Category::where('slug', 'sepatu')->first();
+        $response = $this->get(route('catalog.index', ['category' => $category->slug]));
+        $response->assertStatus(200);
+        $response->assertViewIs('catalog::index');
+        $response->assertSee($category->name);
 
-        $updatedHtml = '<section class="py-12 bg-indigo-900 text-white text-center"><h1 class="text-4xl font-black">PROMO SPESIAL RELOO 2026</h1><p>Diskon hingga 70% untuk produk terkurasi.</p></section>';
-        $updatedCss = '.promo-text { color: #f59e0b; }';
+        // Test condition filtering
+        $responseCond = $this->get(route('catalog.index', ['condition' => 'like_new']));
+        $responseCond->assertStatus(200);
 
-        // Admin saves via AJAX
-        $saveResponse = $this->actingAs($admin)->postJson(route('admin.cms.save', $page->id), [
-            'gjs_data' => ['components' => [['type' => 'text', 'content' => 'PROMO']]],
-            'html' => $updatedHtml,
-            'css' => $updatedCss,
-        ]);
-
-        $saveResponse->assertStatus(200);
-        $saveResponse->assertJson(['status' => 'success']);
-
-        // Public visits homepage '/'
-        $publicResponse = $this->get('/');
-        $publicResponse->assertStatus(200);
-        $publicResponse->assertSee('PROMO SPESIAL RELOO 2026');
-        $publicResponse->assertSee('.promo-text { color: #f59e0b; }', false);
+        // Test product detail
+        $product = Product::where('is_active', true)->first();
+        $responseDetail = $this->get(route('catalog.show', $product->slug));
+        $responseDetail->assertStatus(200);
+        $responseDetail->assertSee($product->name);
     }
 
     /**

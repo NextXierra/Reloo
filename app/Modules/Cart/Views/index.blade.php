@@ -5,17 +5,14 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <div class="mb-8 pb-4 border-b border-[#EAEAEA]">
-        <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-1">PROSES TRANSAKSI</span>
         <h1 class="font-serif text-3xl sm:text-4xl text-[#111111] tracking-tight">Keranjang Belanja</h1>
-        <p class="text-xs text-[#52525B] mt-1">Periksa kembali daftar item pilihan Anda sebelum melanjutkan ke formulir pengiriman.</p>
     </div>
 
     @if($items->isEmpty())
         <div class="bg-white rounded-[6px] p-12 border border-[#EAEAEA] text-center max-w-lg mx-auto">
-            <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-2">[KERANJANG KOSONG]</span>
             <h3 class="font-serif text-2xl text-[#111111] mb-2">Belum Ada Item Terpilih</h3>
             <p class="text-xs text-[#52525B] mb-6 leading-relaxed">
-                Anda belum memasukkan produk ke keranjang. Jelajahi etalase terkurasi kami untuk menemukan sneakers, tas, jam tangan, atau gadget pilihan.
+                Keranjang belanja Anda saat ini masih kosong.
             </p>
             <a href="{{ route('catalog.index') }}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-[5px] font-medium bg-[#111111] text-white text-xs hover:bg-[#27272A] transition-colors whitespace-nowrap">
                 Mulai Belanja &rarr;
@@ -108,7 +105,6 @@
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-[6px] p-6 border border-[#EAEAEA] sticky top-24 space-y-6">
                     <div class="pb-3 border-b border-[#EAEAEA]">
-                        <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-0.5">ESTIMASI BIAYA</span>
                         <h2 class="font-serif text-xl text-[#111111]">Ringkasan Belanja</h2>
                     </div>
 
@@ -133,9 +129,6 @@
                         Lanjut ke Checkout &rarr;
                     </a>
 
-                    <div class="p-3 bg-[#F7F6F3] rounded-[4px] border border-[#EAEAEA] font-mono text-[10px] text-[#71717A] text-center leading-relaxed">
-                        PEMBAYARAN RESMI VIA QRIS & TRANSFER BANK DILENGKAPI RESI PELACAKAN OTOMATIS
-                    </div>
                 </div>
             </div>
 

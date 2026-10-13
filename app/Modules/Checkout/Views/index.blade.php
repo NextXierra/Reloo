@@ -5,9 +5,7 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <div class="mb-8 pb-4 border-b border-[#EAEAEA]">
-        <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-1">TAHAP AKHIR PEMESANAN</span>
         <h1 class="font-serif text-3xl sm:text-4xl text-[#111111] tracking-tight">Checkout Pesanan</h1>
-        <p class="text-xs text-[#52525B] mt-1">Lengkapi alamat tujuan pengiriman dan tentukan opsi pembayaran resmi.</p>
     </div>
 
     <form action="{{ route('checkout.process') }}" method="POST">
@@ -131,7 +129,7 @@
                 <div class="bg-white rounded-[6px] p-6 sm:p-8 border border-[#EAEAEA] space-y-6">
                     <div class="flex items-center gap-3 pb-3 border-b border-[#EAEAEA]">
                         <span class="font-mono text-xs px-2 py-0.5 rounded bg-[#F7F6F3] border border-[#EAEAEA] text-[#111111] font-semibold">03</span>
-                        <h2 class="font-serif text-xl text-[#111111]">Metode Pembayaran Resmi</h2>
+                        <h2 class="font-serif text-xl text-[#111111]">Metode Pembayaran</h2>
                     </div>
 
                     <div class="space-y-3">
@@ -140,13 +138,9 @@
                             <div class="flex items-start gap-4">
                                 <input type="radio" name="payment_gateway" value="qrisly" checked onchange="selectPayment(this)" class="mt-0.5 text-[#111111] focus:ring-[#111111]">
                                 <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
-                                        <span class="font-medium text-xs text-[#111111]">QRIS Otomatis (RajaOngkir Qrisly)</span>
-                                        <span class="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#EDF3EC] text-[#26542A] border border-[#D1E2CF]">Verifikasi Otomatis</span>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-xs text-[#111111]">QRIS</span>
                                     </div>
-                                    <p class="text-xs text-[#52525B] leading-relaxed mb-3">
-                                        Pindai QR code via mobile banking BCA, Mandiri, BRI, BNI atau dompet digital (GoPay, OVO, DANA, ShopeePay) dengan verifikasi sistem tanpa perlu kirim bukti manual.
-                                    </p>
                                     <div class="flex flex-wrap gap-1.5 text-[9px] font-mono text-[#71717A]">
                                         <span class="px-1.5 py-0.5 bg-white border border-[#EAEAEA] rounded">BCA</span>
                                         <span class="px-1.5 py-0.5 bg-white border border-[#EAEAEA] rounded">MANDIRI</span>
@@ -159,27 +153,12 @@
                             </div>
                         </label>
 
-                        <!-- Option Manual Transfer -->
-                        <label class="payment-card block p-5 rounded-[5px] border border-[#EAEAEA] hover:border-[#111111] cursor-pointer transition-colors bg-white">
-                            <div class="flex items-start gap-4">
-                                <input type="radio" name="payment_gateway" value="manual_transfer" onchange="selectPayment(this)" class="mt-0.5 text-[#111111] focus:ring-[#111111]">
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
-                                        <span class="font-medium text-xs text-[#111111]">Transfer Bank Manual (BCA / Mandiri)</span>
-                                        <span class="px-2 py-0.5 rounded text-[9px] font-mono uppercase bg-[#FBF3DB] text-[#785100] border border-[#F5E5B5]">Verifikasi Admin</span>
-                                    </div>
-                                    <p class="text-xs text-[#52525B] leading-relaxed">
-                                        Transfer langsung ke rekening terverifikasi toko Reloo, kemudian unggah foto struk / resi transfer pada laman rincian pesanan.
-                                    </p>
-                                </div>
-                            </div>
-                        </label>
                     </div>
                 </div>
 
                 <!-- 04. Catatan Pesanan -->
                 <div class="bg-white rounded-[6px] p-6 border border-[#EAEAEA]">
-                    <label class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-2">Catatan Tambahan untuk Kurator / Penjual (Opsional)</label>
+                    <label class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-2">Catatan Pesanan (Opsional)</label>
                     <textarea name="customer_note" rows="2" placeholder="Contoh: Tolong lapisi bubble wrap tebal..." class="w-full px-3 py-2 text-xs bg-[#F7F6F3] border border-[#EAEAEA] rounded-[5px] text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]"></textarea>
                 </div>
 
@@ -239,9 +218,6 @@
                         <span>&rarr;</span>
                     </button>
 
-                    <div class="p-3 bg-[#F7F6F3] rounded-[4px] border border-[#EAEAEA] font-mono text-[10px] text-[#71717A] text-center leading-relaxed">
-                        TRANSAKSI DILINDUNGI PROTOKOL ATOMIK DAN JAMINAN UANG KEMBALI 100%
-                    </div>
                 </div>
             </div>
 
