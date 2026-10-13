@@ -80,11 +80,11 @@ class Product extends Model
     public function getConditionBadgeAttribute(): array
     {
         return match ($this->condition) {
-            'new' => ['label' => 'Baru', 'color' => 'bg-emerald-100 text-emerald-800 border-emerald-300'],
-            'like_new' => ['label' => 'Seperti Baru (Like New)', 'color' => 'bg-blue-100 text-blue-800 border-blue-300'],
-            'good' => ['label' => 'Bagus (Good)', 'color' => 'bg-amber-100 text-amber-800 border-amber-300'],
-            'fair' => ['label' => 'Cukup (Fair)', 'color' => 'bg-slate-100 text-slate-800 border-slate-300'],
-            default => ['label' => ucfirst($this->condition), 'color' => 'bg-gray-100 text-gray-800 border-gray-300'],
+            'new' => ['label' => 'Baru', 'color' => 'bg-[#EDF3EC] text-[#26542A] border-[#D1E2CF]'],
+            'like_new' => ['label' => 'Seperti Baru', 'color' => 'bg-[#E1F3FE] text-[#17547D] border-[#C2E4FC]'],
+            'good' => ['label' => 'Bagus', 'color' => 'bg-[#FBF3DB] text-[#785100] border-[#F5E5B5]'],
+            'fair' => ['label' => 'Cukup', 'color' => 'bg-[#F4F4F5] text-[#3F3F46] border-[#E4E4E7]'],
+            default => ['label' => ucfirst($this->condition), 'color' => 'bg-[#F4F4F5] text-[#3F3F46] border-[#E4E4E7]'],
         };
     }
 

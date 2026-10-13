@@ -22,12 +22,11 @@ class AdminCmsController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:cms_pages,slug',
-            'is_homepage' => 'nullable|boolean',
+            'slug' => 'nullable|string|max:255',
         ]);
 
         $slug = !empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['title']);
-        
+
         // Ensure slug uniqueness
         $originalSlug = $slug;
         $counter = 1;
@@ -46,12 +45,42 @@ class AdminCmsController extends Controller
             'slug' => $slug,
             'is_homepage' => $isHomepage,
             'is_active' => true,
-            'gjs_data' => ['components' => [], 'styles' => []],
-            'html_content' => '<section class="py-12 px-6 max-w-7xl mx-auto"><h1 class="text-3xl font-black mb-4">' . e($validated['title']) . '</h1><p class="text-slate-600">Halaman baru dibuat. Desain menggunakan Visual Builder.</p></section>',
+            'gjs_data' => null,
+            'html_content' => '',
             'css_content' => '',
         ]);
 
         return redirect()->route('admin.cms.builder', $page->id)->with('success', 'Halaman berhasil dibuat. Silakan mulai mendesain.');
+    }
+
+    public function update(Request $request, int $id): RedirectResponse
+    {
+        $page = CmsPage::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:cms_pages,slug,' . $page->id,
+            'is_active' => 'nullable',
+            'is_homepage' => 'nullable',
+        ]);
+
+        $slug = !empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['title']);
+        $isActive = $request->boolean('is_active');
+        $isHomepage = $request->boolean('is_homepage');
+
+        if ($isHomepage) {
+            CmsPage::where('id', '!=', $page->id)->update(['is_homepage' => false]);
+            $isActive = true; // Homepage must be active
+        }
+
+        $page->update([
+            'title' => $validated['title'],
+            'slug' => $slug,
+            'is_active' => $isActive,
+            'is_homepage' => $isHomepage,
+        ]);
+
+        return back()->with('success', "Metadata halaman '{$page->title}' berhasil diperbarui.");
     }
 
     public function builder(int $id): View
@@ -100,12 +129,31 @@ class AdminCmsController extends Controller
         return back()->with('success', "Halaman '{$page->title}' berhasil diatur sebagai Beranda utama.");
     }
 
-    public function destroy(int $id): RedirectResponse
+    public function toggleHomepage(int $id): RedirectResponse
     {
         $page = CmsPage::findOrFail($id);
 
         if ($page->is_homepage) {
-            return back()->with('error', 'Halaman beranda utama tidak dapat dihapus. Ubah status beranda ke halaman lain terlebih dahulu.');
+            // Deactivate homepage: sets is_homepage false, returning store front to dynamic catalog
+            $page->update(['is_homepage' => false]);
+            return back()->with('success', "Beranda CMS dinonaktifkan. Beranda utama toko kini kembali menampilkan katalog dinamis.");
+        } else {
+            // Activate as homepage
+            CmsPage::where('is_homepage', true)->update(['is_homepage' => false]);
+            $page->update([
+                'is_homepage' => true,
+                'is_active' => true,
+            ]);
+            return back()->with('success', "Halaman '{$page->title}' berhasil diatur sebagai Beranda utama toko.");
+        }
+    }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        $page = CmsPage::findOrFail($id);
+
+        if ($page->is_homepage && $page->is_active) {
+            return back()->with('error', 'Halaman beranda utama yang aktif tidak dapat dihapus. Nonaktifkan status beranda terlebih dahulu.');
         }
 
         $page->delete();

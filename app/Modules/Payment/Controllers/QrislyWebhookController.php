@@ -13,11 +13,10 @@ class QrislyWebhookController extends Controller
     public function handle(Request $request): JsonResponse
     {
         $payload = $request->all();
-        $event = $payload['event'] ?? '';
+        $event = $payload['event'] ?? ($payload['type'] ?? '');
         $data = $payload['data'] ?? [];
-        $status = $data['status'] ?? '';
-        $historyId = $data['qris_history_id'] ?? ($data['history_id'] ?? null);
-
+        $status = $data['payment_status'] ?? ($data['status'] ?? ($payload['payment_status'] ?? ($payload['status'] ?? '')));
+        $historyId = $data['qris_history_id'] ?? ($data['history_id'] ?? ($payload['qris_history_id'] ?? ($payload['history_id'] ?? null)));
         if ($historyId) {
             $order = Order::with(['payment', 'items'])
                 ->whereHas('payment', function ($q) use ($historyId) {

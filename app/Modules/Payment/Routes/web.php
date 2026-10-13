@@ -12,7 +12,4 @@ Route::middleware('auth')->group(function () {
         ->where('order_number', '.*')
         ->name('payment.manual.upload');
 
-    Route::post('/payment/mock-success/{order_number}', [PaymentController::class, 'mockSuccess'])
-        ->where('order_number', '.*')
-        ->name('payment.mock.success');
 });

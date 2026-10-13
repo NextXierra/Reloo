@@ -34,10 +34,10 @@ class PaymentController extends Controller
                 $qrisData = json_decode($order->payment->gateway_payload, true);
             }
 
-            if (empty($qrisData) || empty($qrisData['qris_string'])) {
+            if (empty($qrisData) || empty($qrisData['qris_string']) || !empty($qrisData['is_dummy']) || empty($order->payment->transaction_id)) {
                 $qrisData = $this->qrislyService->generateQris($order->grand_total, $order->order_number);
                 $order->payment->update([
-                    'transaction_id' => $qrisData['history_id'],
+                    'transaction_id' => (string) $qrisData['history_id'],
                     'gateway_payload' => json_encode($qrisData),
                 ]);
             }
@@ -117,20 +117,4 @@ class PaymentController extends Controller
         return back()->with('success', 'Bukti transfer berhasil diunggah. Admin toko akan segera memverifikasi pembayaran Anda.');
     }
 
-    public function mockSuccess(string $orderNumber): RedirectResponse
-    {
-        $order = Order::with(['payment', 'items'])->where('order_number', $orderNumber)->firstOrFail();
-
-        $order->update(['status' => 'paid']);
-
-        if ($order->payment) {
-            $order->payment->update([
-                'payment_status' => 'paid',
-                'paid_at' => now(),
-                'transaction_id' => 'QRISLY-MOCK-' . time(),
-            ]);
-        }
-
-        return redirect()->route('order.show', $order->order_number)->with('success', 'Pembayaran QRIS berhasil diselesaikan. Pesanan Anda sedang disiapkan.');
-    }
 }

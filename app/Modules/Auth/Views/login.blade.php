@@ -1,17 +1,19 @@
 @extends('layouts.store')
 
-@section('title', 'Masuk ke Akun - Reloo Marketplace')
+@section('title', 'Masuk ke Akun · Reloo')
 
 @section('content')
 <div class="py-16 px-4 max-w-md mx-auto">
-    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
-        <!-- Header -->
+    <div class="bg-white rounded-[6px] p-8 border border-[#EAEAEA]">
+        <!-- Brand Header -->
         <div class="text-center mb-8">
-            <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white font-black text-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-600/30">
-                R
+            <div class="inline-flex items-center gap-1.5 mb-3 select-none">
+                <span class="text-2xl font-black tracking-tight text-[#111111] font-sans flex items-center">
+                    REL<span class="inline-block w-2.5 h-2.5 rounded-full bg-[#6828FF] ml-0.5 mr-0.5"></span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#FA26A0]"></span>
+                </span>
             </div>
-            <h1 class="text-2xl font-black text-slate-900 tracking-tight">Selamat Datang Kembali</h1>
-            <p class="text-xs text-slate-500 mt-1">Masuk ke akun Anda untuk bertransaksi di Reloo</p>
+            <h1 class="font-serif text-2xl text-[#111111] tracking-tight">Selamat Datang Kembali</h1>
+            <p class="text-xs text-[#52525B] mt-1">Masuk ke akun Anda untuk bertransaksi aman di Reloo.</p>
         </div>
 
         <!-- Form -->
@@ -20,49 +22,49 @@
 
             <!-- Email -->
             <div>
-                <label for="email" class="block text-xs font-bold text-slate-700 mb-1">Alamat Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus placeholder="nama@email.com" class="w-full px-4 py-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition @error('email') border-rose-400 bg-rose-50/20 @enderror">
+                <label for="email" class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-1">Alamat Email</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus placeholder="nama@domain.com" class="h-11 w-full px-3.5 text-xs bg-[#F7F6F3] border border-[#EAEAEA] rounded-[5px] text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] transition-colors @error('email') border-[#F8C8CA] bg-[#FDEBEC] @enderror">
                 @error('email')
-                    <p class="text-rose-500 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                    <p class="text-[#8C2220] font-mono text-[11px] mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
             <!-- Password -->
             <div>
-                <label for="password" class="block text-xs font-bold text-slate-700 mb-1">Kata Sandi</label>
-                <input type="password" id="password" name="password" required placeholder="••••••••" class="w-full px-4 py-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition @error('password') border-rose-400 bg-rose-50/20 @enderror">
+                <label for="password" class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-1">Kata Sandi</label>
+                <input type="password" id="password" name="password" required placeholder="••••••••" class="h-11 w-full px-3.5 text-xs bg-[#F7F6F3] border border-[#EAEAEA] rounded-[5px] text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111] transition-colors @error('password') border-[#F8C8CA] bg-[#FDEBEC] @enderror">
                 @error('password')
-                    <p class="text-rose-500 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                    <p class="text-[#8C2220] font-mono text-[11px] mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
             <!-- Remember Me -->
             <div class="flex items-center justify-between text-xs pt-1">
-                <label class="flex items-center gap-2 cursor-pointer text-slate-600 font-medium">
-                    <input type="checkbox" name="remember" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
-                    Ingat saya
+                <label class="flex items-center gap-2 cursor-pointer text-[#52525B]">
+                    <input type="checkbox" name="remember" class="rounded border-[#EAEAEA] text-[#111111] focus:ring-[#111111]">
+                    <span>Ingat sesi saya</span>
                 </label>
             </div>
 
             <!-- Submit -->
-            <button type="submit" class="w-full py-3.5 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white text-xs transition shadow-lg shadow-indigo-600/30">
-                Masuk ke Akun
+            <button type="submit" class="h-11 w-full rounded-[5px] font-medium bg-[#111111] hover:bg-[#27272A] text-white text-xs transition-colors whitespace-nowrap">
+                Masuk ke Akun &rarr;
             </button>
         </form>
 
         <!-- Demo Accounts Hint -->
-        <div class="mt-6 p-3 rounded-2xl bg-indigo-50 border border-indigo-100 text-[11px] text-indigo-900">
-            <span class="font-bold block mb-1">Akun Percobaan (Demo):</span>
-            <div class="space-y-0.5 text-slate-600">
-                <div>Admin: <code class="font-mono text-indigo-700">admin@reloo.id</code> / <code class="font-mono text-indigo-700">password</code></div>
-                <div>Customer: <code class="font-mono text-indigo-700">user@reloo.id</code> / <code class="font-mono text-indigo-700">password</code></div>
+        <div class="mt-6 p-3.5 rounded-[4px] bg-[#F7F6F3] border border-[#EAEAEA] text-[11px] font-mono text-[#52525B]">
+            <span class="font-bold text-[#111111] block mb-1 uppercase tracking-wider">AKUN UJI COBA (SANDBOX):</span>
+            <div class="space-y-0.5">
+                <div>Admin: <code class="text-[#111111]">admin@reloo.id</code> / <code class="text-[#71717A]">password</code></div>
+                <div>User: <code class="text-[#111111]">user@reloo.id</code> / <code class="text-[#71717A]">password</code></div>
             </div>
         </div>
 
         <!-- Footer Link -->
-        <div class="mt-6 text-center text-xs text-slate-500">
-            Belum punya akun Reloo? 
-            <a href="{{ route('register') }}" class="font-bold text-indigo-600 hover:underline">
+        <div class="mt-6 text-center text-xs text-[#71717A]">
+            Belum memiliki akun Reloo? 
+            <a href="{{ route('register') }}" class="text-[#111111] font-medium underline">
                 Daftar Sekarang
             </a>
         </div>

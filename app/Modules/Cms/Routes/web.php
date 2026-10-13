@@ -15,8 +15,10 @@ Route::prefix('admin/cms')
     ->group(function () {
         Route::get('/', [AdminCmsController::class, 'index'])->name('index');
         Route::post('/', [AdminCmsController::class, 'store'])->name('store');
+        Route::put('/{id}', [AdminCmsController::class, 'update'])->name('update');
         Route::get('/{id}/builder', [AdminCmsController::class, 'builder'])->name('builder');
         Route::post('/{id}/save', [AdminCmsController::class, 'save'])->name('save');
         Route::post('/{id}/homepage', [AdminCmsController::class, 'setHomepage'])->name('homepage');
+        Route::post('/{id}/toggle-homepage', [AdminCmsController::class, 'toggleHomepage'])->name('toggle_homepage');
         Route::delete('/{id}', [AdminCmsController::class, 'destroy'])->name('destroy');
     });

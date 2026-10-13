@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'qrisly' => [
+        'api_key' => env('QRISLY_API_KEY', '9vBjwpmb248f87abf1ac249e1DPKzgY5'),
+        'qris_id' => (int) env('QRISLY_QRIS_ID', 1277),
+        'env' => env('QRISLY_ENV', 'sandbox'),
+        'verify_ssl' => env('QRISLY_VERIFY_SSL', false),
+        'merchant_name' => env('QRISLY_MERCHANT_NAME', 'Reloo Marketplace'),
+    ],
+
 ];

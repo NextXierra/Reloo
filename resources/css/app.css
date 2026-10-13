@@ -2,8 +2,157 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../../app/Modules/**/Views/**/*.blade.php';
+@source '../views/**/*.blade.php';
+
+:root {
+    /* Brand Identity (Reloo Official Signature Colors) */
+    --color-brand-violet: #6828FF;
+    --color-brand-pink: #FA26A0;
+    --color-brand-dark: #13091B;
+
+    /* Canvas & Surfaces */
+    --color-paper: #FBFBFA;
+    --color-paper-card: #FFFFFF;
+    --color-paper-subtle: #F7F6F3;
+    --color-paper-dark: #121214;
+
+    /* Ink & Typography */
+    --color-ink: #111111;
+    --color-ink-secondary: #52525B;
+    --color-ink-muted: #71717A;
+    --color-ink-inverted: #FFFFFF;
+
+    /* Structural Borders & Rules */
+    --color-rule: #EAEAEA;
+    --color-rule-dark: #27272A;
+    --color-focus: #111111;
+
+    /* Spot Pastel Status Badges */
+    --badge-green-bg: #EDF3EC;
+    --badge-green-text: #26542A;
+    --badge-green-border: #D1E2CF;
+
+    --badge-blue-bg: #E1F3FE;
+    --badge-blue-text: #17547D;
+    --badge-blue-border: #C2E4FC;
+
+    --badge-yellow-bg: #FBF3DB;
+    --badge-yellow-text: #785100;
+    --badge-yellow-border: #F5E5B5;
+
+    --badge-red-bg: #FDEBEC;
+    --badge-red-text: #8C2220;
+    --badge-red-border: #F8C8CA;
+}
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Instrument Serif', 'Newsreader', Georgia, Cambria, serif;
+    --font-mono: 'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+
+    --color-paper: #FBFBFA;
+    --color-paper-card: #FFFFFF;
+    --color-paper-subtle: #F7F6F3;
+    --color-paper-dark: #121214;
+
+    --color-ink: #111111;
+    --color-ink-secondary: #52525B;
+    --color-ink-muted: #71717A;
+    --color-ink-inverted: #FFFFFF;
+
+    --color-rule: #EAEAEA;
+    --color-rule-dark: #27272A;
+
+    --color-brand-violet: #6828FF;
+    --color-brand-pink: #FA26A0;
+    --color-brand-dark: #13091B;
+}
+
+html, body {
+    overflow-x: clip;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hairline border utility */
+.border-rule {
+    border-color: var(--color-rule);
+}
+.border-rule-dark {
+    border-color: var(--color-rule-dark);
+}
+
+/* Status badges */
+.badge-pastel-green {
+    background-color: var(--badge-green-bg);
+    color: var(--badge-green-text);
+    border: 1px solid var(--badge-green-border);
+}
+.badge-pastel-blue {
+    background-color: var(--badge-blue-bg);
+    color: var(--badge-blue-text);
+    border: 1px solid var(--badge-blue-border);
+}
+.badge-pastel-yellow {
+    background-color: var(--badge-yellow-bg);
+    color: var(--badge-yellow-text);
+    border: 1px solid var(--badge-yellow-border);
+}
+.badge-pastel-red {
+    background-color: var(--badge-red-bg);
+    color: var(--badge-red-text);
+    border: 1px solid var(--badge-red-border);
+}
+
+/* Primary Button Utilitarian Style */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-ink);
+    color: var(--color-ink-inverted);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 0.625rem 1.25rem;
+    white-space: nowrap;
+    transition: background-color 150ms ease, transform 100ms ease;
+}
+.btn-primary:hover {
+    background-color: #27272A;
+}
+.btn-primary:active {
+    transform: scale(0.98);
+}
+.btn-primary:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+}
+
+/* Secondary Button Utilitarian Style */
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-rule);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 0.625rem 1.25rem;
+    white-space: nowrap;
+    transition: background-color 150ms ease, border-color 150ms ease;
+}
+.btn-secondary:hover {
+    background-color: var(--color-paper-subtle);
+    border-color: #D4D4D8;
+}
+.btn-secondary:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
 }

@@ -3,128 +3,130 @@
 @section('title', 'Dashboard Analitik')
 
 @section('content')
-<div class="space-y-8">
-    
-    <!-- Welcome Header Banner -->
-    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="space-y-6">
+
+    <!-- Welcome Header Banner (Clean Editorial White Card) -->
+    <div class="bg-white rounded-[6px] p-6 border border-[#EAEAEA] flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20 mb-3">
-                Reloo Back-Office Panel
+            <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-1">
+                STUDIO ADMINISTRASI RELOO
             </span>
-            <h2 class="text-2xl md:text-3xl font-black mb-2">Selamat Datang, {{ auth()->user()->name }}!</h2>
-            <p class="text-slate-300 text-xs md:text-sm">Pantau statistik penjualan, verifikasi pembayaran pesanan, dan kelola halaman visual CMS.</p>
+            <h2 class="font-serif text-2xl text-[#111111] tracking-tight mb-1">Ringkasan Operasional & Analitik</h2>
+            <p class="text-xs text-[#52525B] max-w-xl leading-relaxed">
+                Pantau omset harian, verifikasi pelunasan QRIS dan transfer manual, kelola stok katalog produk, serta publikasikan tata letak visual landing page.
+            </p>
         </div>
-        <div class="flex items-center gap-3">
-            <a href="{{ route('admin.cms.index') }}" class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-lg shadow-indigo-600/30 flex items-center gap-2">
-                <span>Desain CMS GrapesJS</span>
+        <div class="flex items-center gap-2 flex-wrap">
+            <a href="{{ route('admin.cms.index') }}" class="px-4 py-2 rounded-[5px] bg-[#111111] hover:bg-[#27272A] text-white font-medium text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap">
+                <span>Visual Builder GrapesJS</span>
             </a>
-            <a href="{{ route('admin.products.create') }}" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition border border-white/20">
+            <a href="{{ route('admin.products.create') }}" class="px-4 py-2 rounded-[5px] border border-[#EAEAEA] hover:bg-[#F7F6F3] text-[#111111] font-medium text-xs transition-colors whitespace-nowrap">
                 + Tambah Produk
             </a>
         </div>
     </div>
 
-    <!-- Stat Metric Cards -->
+    <!-- Stat Metric Cards (4 Bento Hairline Cards) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Total Omset -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Omset</span>
-                <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs uppercase">IDR</span>
+        <div class="bg-white p-5 rounded-[6px] border border-[#EAEAEA]">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A]">TOTAL OMSET</span>
+                <span class="font-mono text-[10px] px-1.5 py-0.2 rounded bg-[#EDF3EC] text-[#26542A] border border-[#D1E2CF]">IDR</span>
             </div>
-            <div class="text-xl font-black text-slate-900">{{ $stats['formatted_total_sales'] }}</div>
-            <span class="text-[11px] text-slate-400 mt-1 block">Dari transaksi lunas & terverifikasi</span>
+            <div class="text-2xl font-bold font-mono text-[#111111]">{{ $stats['formatted_total_sales'] }}</div>
+            <span class="text-[11px] font-mono text-[#71717A] mt-1 block">Transaksi lunas & valid</span>
         </div>
 
         <!-- Total Pesanan -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Pesanan</span>
-                <span class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs uppercase">ORD</span>
+        <div class="bg-white p-5 rounded-[6px] border border-[#EAEAEA]">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A]">TOTAL PESANAN</span>
+                <span class="font-mono text-[10px] px-1.5 py-0.2 rounded bg-[#F7F6F3] text-[#52525B] border border-[#EAEAEA]">ORD</span>
             </div>
-            <div class="text-xl font-black text-slate-900">{{ $stats['total_orders'] }} Transaksi</div>
-            <span class="text-[11px] text-slate-400 mt-1 block">Semua pesanan masuk</span>
+            <div class="text-2xl font-bold font-mono text-[#111111]">{{ $stats['total_orders'] }} Transaksi</div>
+            <span class="text-[11px] font-mono text-[#71717A] mt-1 block">Total keseluruhan pesanan</span>
         </div>
 
         <!-- Menunggu Pembayaran -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Belum Bayar</span>
-                <span class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs uppercase">WAIT</span>
+        <div class="bg-white p-5 rounded-[6px] border border-[#EAEAEA]">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A]">BELUM BAYAR</span>
+                <span class="font-mono text-[10px] px-1.5 py-0.2 rounded bg-[#FBF3DB] text-[#785100] border border-[#F5E5B5]">WAIT</span>
             </div>
-            <div class="text-xl font-black text-slate-900">{{ $stats['pending_orders'] }} Pesanan</div>
-            <span class="text-[11px] text-slate-400 mt-1 block">Menunggu pembayaran customer</span>
+            <div class="text-2xl font-bold font-mono text-[#111111]">{{ $stats['pending_orders'] }} Pesanan</div>
+            <span class="text-[11px] font-mono text-[#71717A] mt-1 block">Menunggu verifikasi dana</span>
         </div>
 
         <!-- Total Produk Aktif -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Produk Aktif</span>
-                <span class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs uppercase">SKU</span>
+        <div class="bg-white p-5 rounded-[6px] border border-[#EAEAEA]">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A]">PRODUK AKTIF</span>
+                <span class="font-mono text-[10px] px-1.5 py-0.2 rounded bg-[#F7F6F3] text-[#52525B] border border-[#EAEAEA]">SKU</span>
             </div>
-            <div class="text-xl font-black text-slate-900">{{ $stats['total_products'] }} SKU</div>
-            <span class="text-[11px] text-slate-400 mt-1 block">Siap dijual di etalase</span>
+            <div class="text-2xl font-bold font-mono text-[#111111]">{{ $stats['total_products'] }} SKU</div>
+            <span class="text-[11px] font-mono text-[#71717A] mt-1 block">Aktif di etalase toko</span>
         </div>
     </div>
 
     <!-- Recent Orders Table -->
-    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+    <div class="bg-white rounded-[6px] border border-[#EAEAEA] overflow-hidden">
+        <div class="px-6 py-4 border-b border-[#EAEAEA] flex items-center justify-between">
             <div>
-                <h3 class="font-bold text-sm text-slate-800">Pesanan Masuk Terbaru</h3>
-                <p class="text-xs text-slate-400">Daftar transaksi pesanan terakhir yang perlu diproses</p>
+                <span class="font-mono text-[10px] uppercase tracking-wider text-[#71717A] block mb-0.5">LOG TRANSAKSI TERAKHIR</span>
+                <h3 class="font-serif text-lg text-[#111111]">Pesanan Masuk Terbaru</h3>
             </div>
-            <a href="{{ route('admin.orders.index') }}" class="text-xs font-bold text-indigo-600 hover:underline">
-                Lihat Semua Pesanan &rarr;
+            <a href="{{ route('admin.orders.index') }}" class="font-mono text-xs text-[#111111] hover:underline">
+                Semua Pesanan &rarr;
             </a>
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-600">
-                <thead class="bg-slate-50 text-[11px] uppercase tracking-wider font-bold text-slate-400 border-b border-slate-100">
+            <table class="w-full text-left text-xs">
+                <thead class="bg-[#F7F6F3] text-[10px] font-mono uppercase tracking-wider text-[#71717A] border-b border-[#EAEAEA]">
                     <tr>
-                        <th class="py-4 px-6">Invoice</th>
-                        <th class="py-4 px-6">Pelanggan</th>
-                        <th class="py-4 px-6">Total Tagihan</th>
-                        <th class="py-4 px-6">Status Pesanan</th>
-                        <th class="py-4 px-6">Status Bayar</th>
-                        <th class="py-4 px-6 text-right">Aksi</th>
+                        <th class="py-3 px-6">Invoice</th>
+                        <th class="py-3 px-6">Pelanggan</th>
+                        <th class="py-3 px-6">Total Tagihan</th>
+                        <th class="py-3 px-6">Status Pesanan</th>
+                        <th class="py-3 px-6">Status Bayar</th>
+                        <th class="py-3 px-6 text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-[#EAEAEA]">
                     @forelse($recentOrders as $order)
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-6 font-mono font-bold text-slate-900">
+                        <tr class="hover:bg-[#F7F6F3] transition-colors">
+                            <td class="py-3.5 px-6 font-mono font-medium text-[#111111]">
                                 {{ $order->order_number }}
                             </td>
-                            <td class="py-4 px-6">
-                                <span class="font-bold text-slate-800 block">{{ $order->user ? $order->user->name : '-' }}</span>
-                                <span class="text-[11px] text-slate-400">{{ $order->user ? $order->user->email : '' }}</span>
+                            <td class="py-3.5 px-6">
+                                <span class="font-medium text-[#111111] block">{{ $order->user ? $order->user->name : '-' }}</span>
+                                <span class="font-mono text-[10px] text-[#71717A]">{{ $order->user ? $order->user->email : '' }}</span>
                             </td>
-                            <td class="py-4 px-6 font-black text-slate-900">
+                            <td class="py-3.5 px-6 font-mono font-semibold text-[#111111]">
                                 {{ $order->formatted_grand_total }}
                             </td>
-                            <td class="py-4 px-6">
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border {{ $order->status_badge['color'] }}">
+                            <td class="py-3.5 px-6">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase border {{ $order->status_badge['color'] }}">
                                     {{ $order->status_badge['label'] }}
                                 </span>
                             </td>
-                            <td class="py-4 px-6">
+                            <td class="py-3.5 px-6">
                                 @if($order->payment)
-                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border {{ $order->payment->payment_status_badge['color'] }}">
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase border {{ $order->payment->payment_status_badge['color'] }}">
                                         {{ $order->payment->payment_status_badge['label'] }}
                                     </span>
                                 @endif
                             </td>
-                            <td class="py-4 px-6 text-right">
-                                <a href="{{ route('admin.orders.show', $order->id) }}" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition">
+                            <td class="py-3.5 px-6 text-right">
+                                <a href="{{ route('admin.orders.show', $order->id) }}" class="inline-flex items-center px-2.5 py-1 rounded-[4px] bg-[#111111] hover:bg-[#27272A] text-white font-medium text-xs transition-colors whitespace-nowrap">
                                     Detail & Resi &rarr;
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-12 text-center text-slate-400">
+                            <td colspan="6" class="py-12 text-center text-[#71717A] font-mono text-xs">
                                 Belum ada transaksi pesanan masuk.
                             </td>
                         </tr>

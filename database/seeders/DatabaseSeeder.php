@@ -259,115 +259,293 @@ class DatabaseSeeder extends Seeder
 
         // 4. Seed Default CmsPage (Homepage)
         $homeHtml = <<<'HTML'
-<section class="py-12 px-4 max-w-7xl mx-auto">
-    <!-- Hero Banner -->
-    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-8 md:p-16 shadow-2xl mb-12">
-        <div class="max-w-2xl relative z-10">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/30 text-indigo-300 border border-indigo-400/30 mb-4">
-                Terkurasi & 100% Bergaransi Original
-            </span>
-            <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-4">
-                Temukan Barang Pilihan & <span class="text-indigo-400">Preloved Berkualitas</span>
-            </h1>
-            <p class="text-slate-300 text-base md:text-lg mb-8 leading-relaxed">
-                Platform marketplace terpercaya untuk transaksi aman produk baru dan secondhand idaman. Mulai dari sneakers langka hingga jam tangan mewah.
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="/catalog" class="px-6 py-3.5 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-lg shadow-indigo-600/30 inline-flex items-center gap-2">
-                    Jelajahi Katalog
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </a>
-                <a href="/catalog?condition=like_new" class="px-6 py-3.5 rounded-xl font-bold bg-white/10 hover:bg-white/20 text-white backdrop-blur transition border border-white/20">
-                    Koleksi Like New
-                </a>
-            </div>
-        </div>
-        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
-    </div>
+<div class="space-y-16 py-8 md:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        <!-- Hero Campaign Spotlight -->
+        <section class="border border-[#EAEAEA] rounded-[6px] bg-white p-6 sm:p-10 md:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7">
+                    <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-[1.08] mb-6">
+                        Pasar Barang Pilihan & Preloved Berkualitas
+                    </h1>
+                    <p class="text-[#52525B] text-xs sm:text-sm leading-relaxed mb-8 max-w-xl">
+                        Belanja sneakers, tas branded, jam tangan, dan gadget berkualitas dengan harga transparan dan transaksi aman.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="/catalog" class="inline-flex items-center justify-center px-5 py-2.5 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Jelajahi Katalog Lengkap &rarr;
+                        </a>
+                        <a href="/catalog?condition=like_new" class="inline-flex items-center justify-center px-5 py-2.5 rounded-[5px] text-xs font-medium bg-transparent text-[#111111] border border-[#EAEAEA] hover:bg-[#F7F6F3] transition-colors whitespace-nowrap">
+                            Koleksi Like New
+                        </a>
+                    </div>
+                </div>
 
-    <!-- Trust Badges -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-        <div class="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
-            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xl">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <div class="lg:col-span-5">
+                    <div class="rounded-[6px] border border-[#EAEAEA] p-3 bg-[#FBFBFA]">
+                        <div class="aspect-[4/5] rounded-[4px] overflow-hidden bg-[#F7F6F3] relative">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" alt="Nike Air Max 270" class="w-full h-full object-cover">
+                            <div class="absolute top-3 left-3">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#E1F3FE] text-[#17547D] border border-[#C2E4FC]">
+                                    Like New
+                                </span>
+                            </div>
+                            <div class="absolute bottom-3 left-3 right-3 p-3 bg-white/95 backdrop-blur-sm border border-[#EAEAEA] rounded-[4px] flex items-center justify-between">
+                                <span class="font-medium text-xs text-[#111111]">Nike Air Max 270 Black White</span>
+                                <span class="font-mono text-xs font-semibold text-[#111111]">Rp 1.250.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold text-slate-800 text-sm">Kurasi Fisik Ketat</h4>
-                <p class="text-xs text-slate-500">Kondisi riil terverifikasi</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xl">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-800 text-sm">Pembayaran Aman</h4>
-                <p class="text-xs text-slate-500">Midtrans & Manual Transfer</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
-            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xl">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-800 text-sm">Pengiriman Cepat</h4>
-                <p class="text-xs text-slate-500">JNE, SiCepat, J&T Express</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
-            <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xl">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-800 text-sm">Harga Kompetitif</h4>
-                <p class="text-xs text-slate-500">Hemat hingga 60% harga baru</p>
-            </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Category Grid -->
-    <div class="mb-16">
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight">Kategori Pilihan</h2>
-                <p class="text-slate-500 text-sm">Pilih kategori favorit Anda</p>
+        <!-- Category Quick Navigator Rail -->
+        <section>
+            <div class="flex items-end justify-between mb-6 pb-3 border-b border-[#EAEAEA]">
+                <div>
+                    <span class="font-mono text-[10px] text-[#71717A] tracking-wider uppercase block mb-1">KATEGORI PRODUK</span>
+                    <h2 class="font-serif text-2xl sm:text-3xl text-[#111111] tracking-tight">Kategori Pilihan</h2>
+                </div>
+                <a href="/catalog" class="font-mono text-xs text-[#111111] hover:underline">Semua Kategori &rarr;</a>
             </div>
-            <a href="/catalog" class="text-indigo-600 font-semibold text-sm hover:underline">Semua Kategori &rarr;</a>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <a href="/catalog?category=sepatu" class="group relative rounded-2xl overflow-hidden aspect-square border border-slate-200 bg-slate-100 flex flex-col justify-end p-4 hover:shadow-lg transition">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Sepatu" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                <span class="relative z-10 font-bold text-white text-base">Sepatu</span>
-            </a>
-            <a href="/catalog?category=tas" class="group relative rounded-2xl overflow-hidden aspect-square border border-slate-200 bg-slate-100 flex flex-col justify-end p-4 hover:shadow-lg transition">
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80" alt="Tas" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                <span class="relative z-10 font-bold text-white text-base">Tas</span>
-            </a>
-            <a href="/catalog?category=jam-tangan" class="group relative rounded-2xl overflow-hidden aspect-square border border-slate-200 bg-slate-100 flex flex-col justify-end p-4 hover:shadow-lg transition">
-                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80" alt="Jam Tangan" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                <span class="relative z-10 font-bold text-white text-base">Jam Tangan</span>
-            </a>
-            <a href="/catalog?category=elektronik" class="group relative rounded-2xl overflow-hidden aspect-square border border-slate-200 bg-slate-100 flex flex-col justify-end p-4 hover:shadow-lg transition">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Elektronik" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                <span class="relative z-10 font-bold text-white text-base">Elektronik</span>
-            </a>
-            <a href="/catalog?category=pakaian" class="group relative rounded-2xl overflow-hidden aspect-square border border-slate-200 bg-slate-100 flex flex-col justify-end p-4 hover:shadow-lg transition">
-                <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=400&q=80" alt="Pakaian" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                <span class="relative z-10 font-bold text-white text-base">Pakaian</span>
-            </a>
-        </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <a href="/catalog?category=sepatu" class="group block p-4 bg-white rounded-[6px] border border-[#EAEAEA] hover:border-[#111111] transition-colors">
+                    <div class="aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-3">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Sepatu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="font-medium text-xs text-[#111111] block">Sepatu & Sneakers</span>
+                </a>
+                <a href="/catalog?category=tas" class="group block p-4 bg-white rounded-[6px] border border-[#EAEAEA] hover:border-[#111111] transition-colors">
+                    <div class="aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-3">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80" alt="Tas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="font-medium text-xs text-[#111111] block">Tas & Ransel</span>
+                </a>
+                <a href="/catalog?category=jam-tangan" class="group block p-4 bg-white rounded-[6px] border border-[#EAEAEA] hover:border-[#111111] transition-colors">
+                    <div class="aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-3">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80" alt="Jam Tangan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="font-medium text-xs text-[#111111] block">Jam Tangan</span>
+                </a>
+                <a href="/catalog?category=elektronik" class="group block p-4 bg-white rounded-[6px] border border-[#EAEAEA] hover:border-[#111111] transition-colors">
+                    <div class="aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-3">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Elektronik" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="font-medium text-xs text-[#111111] block">Elektronik & Audio</span>
+                </a>
+                <a href="/catalog?category=pakaian" class="group block p-4 bg-white rounded-[6px] border border-[#EAEAEA] hover:border-[#111111] transition-colors">
+                    <div class="aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-3">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=400&q=80" alt="Pakaian" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="font-medium text-xs text-[#111111] block">Pakaian</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- LIVE PRODUCTS GRID (8 Real E-Commerce Items) -->
+        <section>
+            <div class="flex items-end justify-between mb-6 pb-3 border-b border-[#EAEAEA]">
+                <div>
+                    <span class="font-mono text-[10px] text-[#71717A] tracking-wider uppercase block mb-1">PRODUK TERBARU</span>
+                    <h2 class="font-serif text-2xl sm:text-3xl text-[#111111] tracking-tight">Katalog Produk Pilihan</h2>
+                </div>
+                <a href="/catalog" class="font-mono text-xs text-[#111111] hover:underline">Lihat Semua &rarr;</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1: Nike Air Max 270 -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Nike Air Max 270" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#E1F3FE] text-[#17547D] border border-[#C2E4FC]">
+                            Like New
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Sepatu</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/nike-air-max-270-black-white" class="hover:underline">Nike Air Max 270 Black White</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 1.250.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 2.200.000</span>
+                        </div>
+                        <a href="/catalog/nike-air-max-270-black-white" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 2: Adidas Ultraboost -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?auto=format&fit=crop&w=600&q=80" alt="Adidas Ultraboost Light" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#E1F3FE] text-[#17547D] border border-[#C2E4FC]">
+                            Like New
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Sepatu</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/adidas-ultraboost-light-core-black" class="hover:underline">Adidas Ultraboost Light Core Black</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 1.650.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 3.100.000</span>
+                        </div>
+                        <a href="/catalog/adidas-ultraboost-light-core-black" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 3: Coach Cassie Bag -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80" alt="Coach Cassie Crossbody" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#E1F3FE] text-[#17547D] border border-[#C2E4FC]">
+                            Like New
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Tas</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/coach-cassie-crossbody-bag-black" class="hover:underline">Coach Cassie Crossbody Bag Black</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 3.200.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 6.500.000</span>
+                        </div>
+                        <a href="/catalog/coach-cassie-crossbody-bag-black" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 4: Fjallraven Kanken -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80" alt="Fjallraven Kanken" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#FBF3DB] text-[#785100] border border-[#F5E5B5]">
+                            Bagus
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Tas</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/fjallraven-kanken-backpack-ochre" class="hover:underline">Fjallraven Kanken Backpack Ochre</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 680.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 1.350.000</span>
+                        </div>
+                        <a href="/catalog/fjallraven-kanken-backpack-ochre" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 5: Seiko 5 Sports -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80" alt="Seiko 5 Sports" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#E1F3FE] text-[#17547D] border border-[#C2E4FC]">
+                            Like New
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Jam Tangan</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/seiko-5-sports-automatic-srpd55k1" class="hover:underline">Seiko 5 Sports Automatic SRPD55K1</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 2.850.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 4.100.000</span>
+                        </div>
+                        <a href="/catalog/seiko-5-sports-automatic-srpd55k1" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 6: Casio G-Shock GA-2100 -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=600&q=80" alt="Casio G-Shock" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#EDF3EC] text-[#26542A] border border-[#D1E2CF]">
+                            Baru
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Jam Tangan</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/casio-g-shock-ga-2100-1a1-all-black" class="hover:underline">Casio G-Shock GA-2100-1A1 All Black</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 1.150.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 1.850.000</span>
+                        </div>
+                        <a href="/catalog/casio-g-shock-ga-2100-1a1-all-black" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 7: Sony WH-1000XM4 -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" alt="Sony Headphone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#E1F3FE] text-[#17547D] border border-[#C2E4FC]">
+                            Like New
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Elektronik</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/sony-wh-1000xm4-wireless-headphone" class="hover:underline">Sony WH-1000XM4 Wireless Headphone</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 2.950.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 4.500.000</span>
+                        </div>
+                        <a href="/catalog/sony-wh-1000xm4-wireless-headphone" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 8: Levi's Type III Trucker -->
+                <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                    <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80" alt="Levis Trucker Jacket" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#FBF3DB] text-[#785100] border border-[#F5E5B5]">
+                            Bagus
+                        </span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">Pakaian</span>
+                    <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                        <a href="/catalog/levis-type-iii-trucker-jacket-indigo" class="hover:underline">Levi's Type III Trucker Jacket Indigo</a>
+                    </h3>
+                    <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                        <div class="flex items-baseline justify-between mb-3">
+                            <span class="font-mono text-sm font-semibold text-[#111111]">Rp 750.000</span>
+                            <span class="font-mono text-[10px] text-[#A1A1AA] line-through">Rp 1.490.000</span>
+                        </div>
+                        <a href="/catalog/levis-type-iii-trucker-jacket-indigo" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Rincian Barang
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-</section>
+</div>
 HTML;
 
         $homeCss = <<<'CSS'
-.hero-banner {
-    transition: transform 0.2s ease-in-out;
+.rlo-hero {
+    font-family: inherit;
 }
 CSS;
 

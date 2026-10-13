@@ -1,100 +1,127 @@
 @extends('layouts.store')
 
-@section('title', 'Reloo Marketplace - E-Commerce Preloved & Barang Pilihan')
+@section('title', 'Reloo · Marketplace Preloved & Pilihan')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="space-y-16 py-8 md:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
 
-    <!-- Hero Banner -->
-    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-8 md:p-16 shadow-2xl mb-12">
-        <div class="max-w-2xl relative z-10">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/30 text-indigo-300 border border-indigo-400/30 mb-4">
-                Terkurasi & 100% Bergaransi Original
-            </span>
-            <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-4">
-                Temukan Barang Pilihan & <span class="text-indigo-400">Preloved Berkualitas</span>
-            </h1>
-            <p class="text-slate-300 text-base md:text-lg mb-8 leading-relaxed">
-                Platform marketplace terpercaya untuk transaksi aman produk baru dan secondhand idaman. Mulai dari sneakers langka hingga jam tangan mewah.
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="{{ route('catalog.index') }}" class="px-6 py-3.5 rounded-xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-lg shadow-indigo-600/30 inline-flex items-center gap-2">
-                    Jelajahi Katalog
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </a>
-                <a href="{{ route('catalog.index', ['condition' => 'like_new']) }}" class="px-6 py-3.5 rounded-xl font-bold bg-white/10 hover:bg-white/20 text-white backdrop-blur transition border border-white/20">
-                    Koleksi Like New
-                </a>
-            </div>
-        </div>
-        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
-    </div>
-
-    <!-- Category Grid -->
-    <div class="mb-16">
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight">Kategori Pilihan</h2>
-                <p class="text-slate-500 text-xs">Pilih kategori favorit Anda</p>
-            </div>
-            <a href="{{ route('catalog.index') }}" class="text-indigo-600 font-bold text-xs hover:underline">Semua Kategori &rarr;</a>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            @foreach($categories as $cat)
-                <a href="{{ route('catalog.index', ['category' => $cat->slug]) }}" class="group relative rounded-2xl overflow-hidden aspect-square border border-slate-200 bg-slate-100 flex flex-col justify-end p-4 hover:shadow-lg transition">
-                    @if($cat->image_path)
-                        <img src="{{ $cat->image_path }}" alt="{{ $cat->name }}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    @endif
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
-                    <span class="relative z-10 font-bold text-white text-sm">{{ $cat->name }}</span>
-                    <span class="relative z-10 text-[10px] text-slate-300">{{ $cat->products_count }} Produk</span>
-                </a>
-            @endforeach
-        </div>
-    </div>
-
-    <!-- Featured Products Grid -->
-    <div>
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight">Produk Pilihan Terbaru</h2>
-                <p class="text-slate-500 text-xs">Barang segar baru masuk di etalase</p>
-            </div>
-            <a href="{{ route('catalog.index') }}" class="text-indigo-600 font-bold text-xs hover:underline">Lihat Semua &rarr;</a>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @foreach($featuredProducts as $item)
-                <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group">
-                    <div class="relative aspect-square bg-slate-100 overflow-hidden">
-                        @if($item->primaryImage)
-                            <img src="{{ $item->primaryImage->url }}" alt="{{ $item->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                        @endif
-                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold border {{ $item->condition_badge['color'] }}">
-                            {{ $item->condition_badge['label'] }}
-                        </span>
+        <!-- Hero Campaign Section -->
+        <section class="border border-[#EAEAEA] rounded-[6px] bg-white p-6 sm:p-10 md:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left Editorial Text (Spans 7 Cols) -->
+                <div class="lg:col-span-7">
+                    <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-[1.08] mb-6">
+                        Pasar Barang Pilihan & Preloved Berkualitas
+                    </h1>
+                    <p class="text-[#52525B] text-xs sm:text-sm leading-relaxed mb-8 max-w-xl">
+                        Belanja sneakers, tas branded, jam tangan, dan gadget berkualitas dengan harga transparan dan transaksi aman.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="{{ route('catalog.index') }}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                            Jelajahi Katalog Lengkap &rarr;
+                        </a>
+                        <a href="{{ route('catalog.index', ['condition' => 'like_new']) }}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-[5px] text-xs font-medium bg-transparent text-[#111111] border border-[#EAEAEA] hover:bg-[#F7F6F3] transition-colors whitespace-nowrap">
+                            Koleksi Like New
+                        </a>
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
-                            {{ $item->category->name }}
-                        </span>
-                        <h3 class="font-bold text-slate-900 text-sm mb-2 line-clamp-1">
-                            <a href="{{ route('catalog.show', $item->slug) }}" class="hover:text-indigo-600">
-                                {{ $item->name }}
-                            </a>
-                        </h3>
-                        <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
-                            <div>
-                                <span class="text-sm font-black text-indigo-600">{{ $item->formatted_price }}</span>
+                </div>
+
+                <!-- Right Visual Frame (Spans 5 Cols) -->
+                <div class="lg:col-span-5">
+                    <div class="rounded-[6px] border border-[#EAEAEA] p-3 bg-[#FBFBFA]">
+                        <div class="aspect-[4/5] rounded-[4px] overflow-hidden bg-[#F7F6F3] relative">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" alt="Nike Air Max 270" class="w-full h-full object-cover">
+                            <div class="absolute top-3 left-3">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-[#E1F3FE] text-[#17547D] border border-[#C2E4FC]">
+                                    Like New
+                                </span>
                             </div>
-                            <a href="{{ route('catalog.show', $item->slug) }}" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-[11px] hover:bg-indigo-600 transition">
-                                Detail
-                            </a>
+                            <div class="absolute bottom-3 left-3 right-3 p-3 bg-white/95 backdrop-blur-sm border border-[#EAEAEA] rounded-[4px] flex items-center justify-between">
+                                <span class="font-medium text-xs text-[#111111]">Nike Air Max 270 Black White</span>
+                                <span class="font-mono text-xs font-semibold text-[#111111]">Rp 1.250.000</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-    </div>
+            </div>
+        </section>
 
+        <!-- Category Navigator Rail -->
+        <section>
+            <div class="flex items-end justify-between mb-6 pb-3 border-b border-[#EAEAEA]">
+                <div>
+                    <span class="font-mono text-[10px] text-[#71717A] tracking-wider uppercase block mb-1">KATEGORI PRODUK</span>
+                    <h2 class="font-serif text-2xl sm:text-3xl text-[#111111] tracking-tight">Kategori Pilihan</h2>
+                </div>
+                <a href="{{ route('catalog.index') }}" class="font-mono text-xs text-[#111111] hover:underline">Semua Kategori &rarr;</a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                @foreach($categories as $cat)
+                    <a href="{{ route('catalog.index', ['category' => $cat->slug]) }}" class="group block p-4 bg-white rounded-[6px] border border-[#EAEAEA] hover:border-[#111111] transition-colors">
+                        <div class="aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-3 relative">
+                            @if($cat->image_path)
+                                <img src="{{ $cat->image_path }}" alt="{{ $cat->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center font-mono text-xs text-[#71717A]">
+                                    {{ substr($cat->name, 0, 2) }}
+                                </div>
+                            @endif
+                        </div>
+                        <span class="font-medium text-xs text-[#111111] block">{{ $cat->name }}</span>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+
+        <!-- Product Showcase Grid -->
+        <section>
+            <div class="flex items-end justify-between mb-6 pb-3 border-b border-[#EAEAEA]">
+                <div>
+                    <span class="font-mono text-[10px] text-[#71717A] tracking-wider uppercase block mb-1">PRODUK TERBARU</span>
+                    <h2 class="font-serif text-2xl sm:text-3xl text-[#111111] tracking-tight">Katalog Produk Pilihan</h2>
+                </div>
+                <a href="{{ route('catalog.index') }}" class="font-mono text-xs text-[#111111] hover:underline">Lihat Semua &rarr;</a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach($featuredProducts as $item)
+                    <div class="bg-white rounded-[6px] border border-[#EAEAEA] p-4 flex flex-col group hover:border-[#111111] transition-colors">
+                        <div class="relative aspect-square rounded-[4px] overflow-hidden bg-[#F7F6F3] mb-4">
+                            @if($item->primaryImage)
+                                <img src="{{ $item->primaryImage->url }}" alt="{{ $item->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-[#71717A] font-mono text-xs">
+                                    [FOTO PRODUK]
+                                </div>
+                            @endif
+                            <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase border {{ $item->condition_badge['color'] }}">
+                                {{ $item->condition_badge['label'] }}
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-mono text-[#71717A] uppercase mb-1">
+                            {{ $item->category->name }}
+                        </span>
+                        <h3 class="font-medium text-xs text-[#111111] mb-2 line-clamp-1">
+                            <a href="{{ route('catalog.show', $item->slug) }}" class="hover:underline">
+                                {{ $item->name }}
+                            </a>
+                        </h3>
+                        <div class="mt-auto pt-3 border-t border-[#EAEAEA]">
+                            <div class="flex items-baseline justify-between mb-3">
+                                <span class="font-mono text-sm font-semibold text-[#111111]">{{ $item->formatted_price }}</span>
+                                @if($item->formatted_original_price)
+                                    <span class="font-mono text-[10px] text-[#A1A1AA] line-through">{{ $item->formatted_original_price }}</span>
+                                @endif
+                            </div>
+                            <a href="{{ route('catalog.show', $item->slug) }}" class="w-full inline-flex items-center justify-center py-2 rounded-[5px] text-xs font-medium bg-[#111111] text-white hover:bg-[#27272A] transition-colors whitespace-nowrap">
+                                Rincian Barang
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+
+    </div>
 </div>
 @endsection
