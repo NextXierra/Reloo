@@ -7,6 +7,16 @@
     <div class="mb-8 pb-4 border-b border-[#EAEAEA]">
         <h1 class="font-serif text-3xl sm:text-4xl text-[#111111] tracking-tight">Checkout Pesanan</h1>
     </div>
+    @if($errors->any())
+        <div class="mb-6 p-4 rounded-[5px] bg-[#FDEBEC] border border-[#F8C8CA] text-xs text-[#8C2220]">
+            <strong class="font-semibold block mb-1">Periksa kembali data formulir:</strong>
+            <ul class="list-disc list-inside space-y-0.5">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('checkout.process') }}" method="POST">
         @csrf
