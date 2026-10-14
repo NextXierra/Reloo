@@ -36,8 +36,3 @@ env:
   KOMERCE_SHIPPER_DESTINATION_ID: "17473"
   KOMERCE_DELIVERY_VERIFY_SSL: "false"
 
-capabilities:
-  instaboot:
-    requests:
-      - path: /
-      - path: /catalog

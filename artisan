@@ -12,6 +12,16 @@ require __DIR__.'/vendor/autoload.php';
 // Bootstrap Laravel and handle the command...
 /** @var Application $app */
 $app = require_once __DIR__.'/bootstrap/app.php';
+$confirmable = ['migrate', 'migrate:fresh', 'migrate:refresh', 'migrate:reset', 'migrate:rollback', 'db:seed', 'db:wipe', 'key:generate'];
+foreach ($_SERVER['argv'] ?? [] as $arg) {
+    if (in_array($arg, $confirmable, true)) {
+        if (!in_array('--force', $_SERVER['argv'], true)) {
+            $_SERVER['argv'][] = '--force';
+        }
+        break;
+    }
+}
+
 
 $status = $app->handleCommand(new ArgvInput);
 
