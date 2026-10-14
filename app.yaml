@@ -13,9 +13,9 @@ scaling:
 env:
   APP_NAME: "Reloo Marketplace"
   APP_ENV: production
+  APP_KEY: "base64:YuMV7S3XJTNVEyacxc3q35i8+Da1gEWtOdFM9RLv2FA="
   APP_DEBUG: "false"
   APP_LOCALE: id
-  APP_FALLBACK_LOCALE: id
   DB_CONNECTION: sqlite
   DB_DATABASE: /app/database/database.sqlite
   SESSION_DRIVER: file
@@ -37,3 +37,4 @@ env:
   KOMERCE_SHIPPER_DESTINATION_ID: "17473"
   KOMERCE_DELIVERY_VERIFY_SSL: "false"
 
+app_id: da_nP7IptBU3oaN

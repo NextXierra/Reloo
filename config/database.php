@@ -43,7 +43,10 @@ return [
                 if ($db === 'aimeos' || !$db) {
                     return database_path('database.sqlite');
                 }
-                return str_ends_with($db, '.sqlite') ? base_path($db) : $db;
+                if (str_starts_with($db, '/') || str_starts_with($db, '\\') || preg_match('/^[A-Za-z]:/', $db)) {
+                    return $db;
+                }
+                return base_path($db);
             })(),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),

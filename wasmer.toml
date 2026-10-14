@@ -2,6 +2,7 @@
 name = "adit80129/reloo"
 version = "0.1.0"
 description = "Reloo Minimalist Curated Marketplace"
+private = true
 license = "MIT"
 readme = "guide.md"
 repository = "https://github.com/NextXierra/Reloo.git"
