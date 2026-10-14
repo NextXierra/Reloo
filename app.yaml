@@ -1,0 +1,43 @@
+kind: wasmer.io/App.v0
+name: reloo
+package: .
+debug: false
+
+redirect:
+  force_https: true
+
+scaling:
+  mode: single_concurrency
+
+env:
+  APP_NAME: "Reloo Marketplace"
+  APP_ENV: production
+  APP_DEBUG: "false"
+  APP_LOCALE: id
+  APP_FALLBACK_LOCALE: id
+  DB_CONNECTION: sqlite
+  DB_DATABASE: /app/database/database.sqlite
+  SESSION_DRIVER: file
+  CACHE_STORE: file
+  QUEUE_CONNECTION: sync
+  LOG_CHANNEL: stderr
+  QRISLY_ENV: sandbox
+  QRISLY_API_KEY: "9vBjwpmb248f87abf1ac249e1DPKzgY5"
+  QRISLY_QRIS_ID: "1277"
+  QRISLY_MERCHANT_NAME: "Reloo Marketplace"
+  QRISLY_VERIFY_SSL: "false"
+  RAJAONGKIR_API_KEY: "MDbaQJym248f87abf1ac249e3qdXbx5I"
+  RAJAONGKIR_BASE_URL: "https://rajaongkir.komerce.id/api/v1"
+  RAJAONGKIR_DEFAULT_ORIGIN_ID: "17473"
+  RAJAONGKIR_VERIFY_SSL: "false"
+  KOMERCE_DELIVERY_API_KEY: "MDbaQJym248f87abf1ac249e3qdXbx5I"
+  KOMERCE_DELIVERY_ENV: sandbox
+  KOMERCE_DELIVERY_BASE_URL: "https://api-sandbox.collaborator.komerce.id"
+  KOMERCE_SHIPPER_DESTINATION_ID: "17473"
+  KOMERCE_DELIVERY_VERIFY_SSL: "false"
+
+capabilities:
+  instaboot:
+    requests:
+      - path: /
+      - path: /catalog

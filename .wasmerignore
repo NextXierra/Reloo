@@ -1,0 +1,10 @@
+.git
+.github
+node_modules
+tests
+.phpunit.cache
+*.log
+.codex
+.cursor
+.vscode
+.idea

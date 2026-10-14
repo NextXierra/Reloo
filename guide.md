@@ -123,3 +123,55 @@ Untuk memastikan seluruh alur sistem dan integrasi berjalan tanpa error:
 php artisan test
 ```
 *Seluruh unit & feature tests (termasuk validasi checkout, kalkulasi shipping, dan webhook delivery) harus berstatus PASSED.*
+
+---
+
+## 7. Deploy ke Wasmer Edge (WebAssembly)
+
+Project ini telah dilengkapi konfigurasi `wasmer.toml`, `app.yaml`, `config/php.ini`, dan router `server.php` sehingga dapat langsung dijalankan dan di-deploy ke **Wasmer Edge** berbasis WebAssembly (WASI).
+
+### a. Install Wasmer CLI
+Jika belum memiliki Wasmer CLI pada perangkat:
+```bash
+# Linux / macOS:
+curl https://get.wasmer.io -sSfL | sh
+
+# Windows (PowerShell):
+winget install Wasmer.Wasmer
+# atau via iwr:
+iwr https://win.wasmer.io -useb | iex
+```
+
+### b. Login ke Wasmer
+```bash
+wasmer login
+```
+
+### c. Siapkan Aset & Cache Production
+Sebelum mempublikasikan ke Wasmer Edge, siapkan build frontend dan cache konfigurasi:
+```bash
+composer install --no-dev --optimize-autoloader
+npm run build
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+### d. Uji Coba Lokal dengan Wasmer
+Jalankan runtime WASI lokal:
+```bash
+wasmer run .
+```
+Buka browser di `http://localhost:8080` untuk memverifikasi aplikasi berjalan pada runtime WebAssembly.
+
+### e. Deploy ke Edge
+Deploy aplikasi ke Wasmer Edge:
+```bash
+wasmer deploy
+```
+
+### f. Set Secrets Production (Opsional)
+Gunakan CLI Wasmer untuk menyetel secret seperti `APP_KEY` unik produksi:
+```bash
+wasmer app secrets create APP_KEY "base64:..."
+```
