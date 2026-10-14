@@ -1,5 +1,6 @@
 kind: wasmer.io/App.v0
 name: reloo
+owner: adit80129
 package: .
 debug: false
 
