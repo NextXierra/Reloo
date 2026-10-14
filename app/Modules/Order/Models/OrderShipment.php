@@ -16,14 +16,28 @@ class OrderShipment extends Model
         'courier_service',
         'tracking_number',
         'shipping_status', // pending, in_transit, delivered
+        'delivery_order_no',
+        'destination_id',
+        'origin_id',
+        'pickup_status',
+        'pickup_time',
+        'pickup_vehicle',
+        'label_path',
+        'live_tracking_url',
+        'shipping_cashback',
+        'delivery_payload',
         'shipped_at',
         'delivered_at',
     ];
 
     protected $casts = [
+        'pickup_time' => 'datetime',
+        'delivery_payload' => 'array',
+        'shipping_cashback' => 'decimal:2',
         'shipped_at' => 'datetime',
         'delivered_at' => 'datetime',
     ];
+
 
     public function order(): BelongsTo
     {

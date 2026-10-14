@@ -55,6 +55,7 @@ class CheckoutController extends Controller
 
         // 1. Resolve Shipping Address Snapshot
         $addressSnapshot = [];
+        $savedAddress = null;
         if ($request->filled('address_id')) {
             $savedAddress = UserAddress::where('user_id', $userId)->where('id', $request->address_id)->firstOrFail();
             $addressSnapshot = [
@@ -86,7 +87,7 @@ class CheckoutController extends Controller
         }
 
         // 2. Atomic Order Transaction
-        $order = DB::transaction(function () use ($userId, $cartItems, $addressSnapshot, $request) {
+        $order = DB::transaction(function () use ($userId, $cartItems, $addressSnapshot, $savedAddress, $request) {
             foreach ($cartItems as $cartItem) {
                 $product = Product::lockForUpdate()->find($cartItem->product_id);
                 if (!$product || !$product->is_active) {
@@ -102,9 +103,18 @@ class CheckoutController extends Controller
             }
 
             $totals = $this->cartService->calculateTotals($cartItems);
-            $shippingInfo = $this->shippingCalculator->calculate($request->courier_code, $totals['total_weight']);
+            $destinationId = $request->filled('destination_id') ? (int) $request->destination_id : null;
+            if (!$destinationId && !empty($savedAddress) && !app()->environment('testing')) {
+                $searchQuery = $savedAddress->district_name ?: ($savedAddress->city_name ?: $savedAddress->postal_code);
+                if ($searchQuery) {
+                    $roResults = app(\App\Modules\Shipping\Services\RajaOngkirShippingCostService::class)->searchDestinations($searchQuery, 1);
+                    if (!empty($roResults) && !empty($roResults[0]['id'])) {
+                        $destinationId = (int) $roResults[0]['id'];
+                    }
+                }
+            }
+            $shippingInfo = $this->shippingCalculator->calculate($request->courier_code, $totals['total_weight'], $destinationId);
             $grandTotal = $totals['items_total'] + $shippingInfo['cost'];
-
             $orderNumber = 'INV/' . date('Ymd') . '/RLO-' . strtoupper(Str::random(5));
 
             $order = Order::create([
@@ -138,6 +148,8 @@ class CheckoutController extends Controller
                 'courier_code' => $shippingInfo['code'],
                 'courier_service' => $shippingInfo['service'],
                 'shipping_status' => 'pending',
+                'destination_id' => $destinationId,
+                'origin_id' => (int) config('services.rajaongkir.origin_id', 17473),
             ]);
 
             $payment = OrderPayment::create([

@@ -39,7 +39,7 @@
                             @foreach($addresses as $addr)
                                 <label class="address-card block p-4 rounded-[5px] border cursor-pointer transition-colors {{ $addr->is_default ? 'border-[#111111] bg-[#F7F6F3]' : 'border-[#EAEAEA] hover:border-[#A1A1AA]' }}">
                                     <div class="flex items-start gap-3">
-                                        <input type="radio" name="address_id" value="{{ $addr->id }}" {{ $addr->is_default ? 'checked' : '' }} onchange="toggleManualAddress(false); selectAddress(this);" class="mt-0.5 text-[#111111] focus:ring-[#111111]">
+                                        <input type="radio" name="address_id" value="{{ $addr->id }}" {{ $addr->is_default ? 'checked' : '' }} data-query="{{ $addr->district_name ?: ($addr->city_name ?: $addr->postal_code) }}" onchange="toggleManualAddress(false); selectAddress(this);" class="mt-0.5 text-[#111111] focus:ring-[#111111]">
                                         <div>
                                             <div class="flex items-center gap-2 mb-1">
                                                 <span class="font-medium text-xs text-[#111111]">{{ $addr->recipient_name }}</span>
@@ -67,6 +67,26 @@
 
                     <!-- Manual Address Inputs -->
                     <div id="manual-address-fields" class="{{ $addresses->isNotEmpty() ? 'hidden' : '' }} grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <input type="hidden" name="destination_id" id="destination_id" value="{{ old('destination_id') }}">
+
+                        <!-- RajaOngkir Destination Search Auto-complete -->
+                        <div class="md:col-span-2 relative">
+                            <label class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-1">
+                                Kecamatan / Kota Pengiriman
+                            </label>
+                            <div class="relative">
+                                <input type="text" id="destination-search-input" autocomplete="off" placeholder="Ketik minimal 3 huruf nama kecamatan atau kota, misal: Grogol..." class="w-full px-3 py-2 text-xs bg-[#F7F6F3] border border-[#EAEAEA] rounded-[5px] text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]">
+                                <div id="destination-loading" class="hidden absolute right-3 top-2.5 text-xs text-[#71717A]">Mencari...</div>
+                            </div>
+                            <div id="destination-dropdown" class="hidden absolute z-30 left-0 right-0 mt-1 max-h-48 overflow-y-auto bg-white border border-[#EAEAEA] rounded-[5px] shadow-lg text-xs divide-y divide-[#EAEAEA]">
+                                <!-- Options loaded dynamically -->
+                            </div>
+                            <div id="selected-destination-badge" class="hidden mt-1.5 text-[11px] text-[#26542A] bg-[#EDF3EC] p-2 rounded border border-[#D1E2CF] flex items-center justify-between">
+                                <span id="selected-destination-label"></span>
+                                <button type="button" onclick="clearSelectedDestination()" class="text-[#8C2220] hover:underline ml-2 text-[10px] font-mono">Ubah</button>
+                            </div>
+                        </div>
+
                         <div>
                             <label class="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-1">Nama Penerima</label>
                             <input type="text" name="recipient_name" value="{{ old('recipient_name', auth()->user()->name) }}" placeholder="Nama penerima paket" class="w-full px-3 py-2 text-xs bg-[#F7F6F3] border border-[#EAEAEA] rounded-[5px] text-[#111111] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#111111]">
@@ -116,7 +136,7 @@
                         </span>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div id="courier-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         @foreach($couriers as $code => $c)
                             <label class="courier-card p-4 rounded-[5px] border cursor-pointer transition-colors flex flex-col justify-between gap-3 {{ $loop->first ? 'border-[#111111] bg-[#F7F6F3]' : 'border-[#EAEAEA] hover:border-[#A1A1AA]' }}">
                                 <div class="flex items-start justify-between gap-2">
@@ -257,6 +277,11 @@
             parentCard.classList.add('border-[#111111]', 'bg-[#F7F6F3]');
             parentCard.classList.remove('border-[#EAEAEA]');
         }
+
+        const query = radio.getAttribute('data-query');
+        if (query && radio.value) {
+            autoResolveSavedAddress(query);
+        }
     }
 
     function selectCourier(radio) {
@@ -284,5 +309,195 @@
         parentCard.classList.add('border-[#111111]', 'bg-[#F7F6F3]');
         parentCard.classList.remove('border-[#EAEAEA]', 'bg-white');
     }
+
+    // RajaOngkir Live Destination & Tariff Search
+    const totalWeight = {{ (int) $totals['total_weight'] }};
+    const searchInput = document.getElementById('destination-search-input');
+    const dropdown = document.getElementById('destination-dropdown');
+    const loadingIndicator = document.getElementById('destination-loading');
+    const destinationIdInput = document.getElementById('destination_id');
+    const selectedBadge = document.getElementById('selected-destination-badge');
+    const selectedLabel = document.getElementById('selected-destination-label');
+    let searchTimeout = null;
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            const query = this.value.trim();
+
+            if (query.length < 3) {
+                dropdown.classList.add('hidden');
+                dropdown.innerHTML = '';
+                return;
+            }
+
+            loadingIndicator.classList.remove('hidden');
+
+            searchTimeout = setTimeout(() => {
+                fetch(`/api/shipping/destinations?search=${encodeURIComponent(query)}&limit=10`)
+                    .then(res => res.json())
+                    .then(res => {
+                        loadingIndicator.classList.add('hidden');
+                        if (res.meta && res.meta.code === 200 && Array.isArray(res.data) && res.data.length > 0) {
+                            renderDestinations(res.data);
+                        } else {
+                            dropdown.innerHTML = '<div class="p-3 text-xs text-[#71717A] italic">Wilayah tidak ditemukan. Coba ketik nama kecamatan lain.</div>';
+                            dropdown.classList.remove('hidden');
+                        }
+                    })
+                    .catch(() => {
+                        loadingIndicator.classList.add('hidden');
+                        dropdown.classList.add('hidden');
+                    });
+            }, 350);
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    function renderDestinations(items) {
+        let html = '';
+        items.forEach(item => {
+            const safeItem = JSON.stringify(item).replace(/"/g, '&quot;');
+            html += `
+                <div class="p-2.5 hover:bg-[#F7F6F3] cursor-pointer transition-colors" onclick="selectDestination(${safeItem})">
+                    <div class="font-medium text-[#111111] text-xs">${item.subdistrict_name || ''}, ${item.city_name || ''}</div>
+                    <div class="font-mono text-[10px] text-[#71717A]">${item.province_name || ''} ${item.postal_code ? '• ' + item.postal_code : ''}</div>
+                </div>
+            `;
+        });
+        dropdown.innerHTML = html;
+        dropdown.classList.remove('hidden');
+    }
+
+    function selectDestination(item) {
+        destinationIdInput.value = item.id;
+        selectedLabel.textContent = `Tujuan terpilih: ${item.subdistrict_name}, ${item.city_name}, ${item.province_name} (${item.postal_code || '-'})`;
+        selectedBadge.classList.remove('hidden');
+        dropdown.classList.add('hidden');
+        searchInput.value = '';
+
+        // Auto-fill address fields if available
+        const provInput = document.querySelector('input[name="province_name"]');
+        const cityInput = document.querySelector('input[name="city_name"]');
+        const distInput = document.querySelector('input[name="district_name"]');
+        const postInput = document.querySelector('input[name="postal_code"]');
+
+        if (provInput && item.province_name) provInput.value = item.province_name;
+        if (cityInput && item.city_name) cityInput.value = item.city_name;
+        if (distInput && (item.district_name || item.subdistrict_name)) distInput.value = item.district_name || item.subdistrict_name;
+        if (postInput && item.postal_code) postInput.value = item.postal_code;
+
+        // Fetch live rates
+        fetchLiveCourierRates(item.id);
+    }
+
+    function clearSelectedDestination() {
+        destinationIdInput.value = '';
+        selectedBadge.classList.add('hidden');
+        selectedLabel.textContent = '';
+    }
+
+    function fetchLiveCourierRates(destinationId) {
+        const courierGrid = document.getElementById('courier-grid');
+        courierGrid.innerHTML = '<div class="col-span-2 p-6 text-center text-xs text-[#71717A] italic">Menghitung ongkos kirim...</div>';
+        fetch('/api/shipping/calculate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                destination_id: destinationId,
+                weight_grams: totalWeight
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (res.meta && res.meta.code === 200 && res.data) {
+                renderCourierOptions(res.data);
+            }
+        })
+        .catch(() => {
+            // Keep existing static fallback if fetch fails
+        });
+    }
+
+    function renderCourierOptions(couriersMap) {
+        const courierGrid = document.getElementById('courier-grid');
+        let html = '';
+        let isFirst = true;
+        let firstCost = 0;
+
+        Object.keys(couriersMap).forEach(code => {
+            if (code === 'flat') return;
+            const list = couriersMap[code];
+            const c = Array.isArray(list) ? list[0] : list;
+
+            if (isFirst) {
+                firstCost = parseFloat(c.cost);
+            }
+
+            const isChecked = isFirst ? 'checked' : '';
+            const cardClass = isFirst ? 'border-[#111111] bg-[#F7F6F3]' : 'border-[#EAEAEA] hover:border-[#A1A1AA]';
+
+            html += `
+                <label class="courier-card p-4 rounded-[5px] border cursor-pointer transition-colors flex flex-col justify-between gap-3 ${cardClass}">
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <input type="radio" name="courier_code" value="${code}" ${isChecked} data-cost="${c.cost}" onchange="selectCourier(this)" class="text-[#111111] focus:ring-[#111111]">
+                            <div>
+                                <span class="font-medium text-xs text-[#111111] block leading-tight">${c.name}</span>
+                                <span class="font-mono text-[11px] text-[#71717A] block">${c.service}</span>
+                            </div>
+                        </div>
+                        <span class="font-mono text-xs font-semibold text-[#111111]">${c.formatted_cost}</span>
+                    </div>
+                    <span class="font-mono text-[10px] text-[#71717A]">Estimasi Tiba: ${c.etd}</span>
+                </label>
+            `;
+
+            isFirst = false;
+        });
+
+        courierGrid.innerHTML = html;
+
+        // Update summary totals
+        const grandTotal = subtotal + firstCost;
+        document.getElementById('summary-shipping').textContent = 'Rp ' + firstCost.toLocaleString('id-ID');
+        document.getElementById('summary-grand-total').textContent = 'Rp ' + grandTotal.toLocaleString('id-ID');
+    }
+
+    function autoResolveSavedAddress(query) {
+        const clean = query.trim();
+        if (clean.length < 3) return;
+
+        fetch(`/api/shipping/destinations?search=${encodeURIComponent(clean)}&limit=1`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.meta && res.meta.code === 200 && Array.isArray(res.data) && res.data.length > 0) {
+                    const dest = res.data[0];
+                    destinationIdInput.value = dest.id;
+                    fetchLiveCourierRates(dest.id);
+                }
+            })
+            .catch(() => {});
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkedAddress = document.querySelector('input[name="address_id"]:checked');
+        if (checkedAddress && checkedAddress.value) {
+            const query = checkedAddress.getAttribute('data-query');
+            if (query) {
+                autoResolveSavedAddress(query);
+            }
+        }
+    });
 </script>
 @endsection

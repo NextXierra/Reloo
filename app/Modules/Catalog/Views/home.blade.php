@@ -103,7 +103,7 @@
         <section>
             <div class="flex items-end justify-between mb-6 pb-3 border-b border-[#EAEAEA]">
                 <div>
-                    <h2 class="font-serif text-2xl sm:text-3xl text-[#111111] tracking-tight">Kategori Terkurasi</h2>
+                    <h2 class="font-serif text-2xl sm:text-3xl text-[#111111] tracking-tight">Kategori</h2>
                 </div>
                 <a href="{{ route('catalog.index') }}" class="font-mono text-xs text-[#111111] hover:underline">
                     Semua Kategori &rarr;

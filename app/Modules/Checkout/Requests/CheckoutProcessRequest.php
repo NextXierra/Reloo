@@ -22,8 +22,8 @@ class CheckoutProcessRequest extends FormRequest
             'city_name' => 'nullable|required_without:address_id|string|max:100',
             'district_name' => 'nullable|string|max:100',
             'postal_code' => 'nullable|required_without:address_id|string|max:10',
+            'destination_id' => 'nullable|integer',
             'save_address' => 'nullable|boolean',
-
             'courier_code' => 'required|string|in:jne,sicepat,jnt,flat',
             'payment_gateway' => 'required|string|in:qrisly,manual_transfer',
             'customer_note' => 'nullable|string|max:500',

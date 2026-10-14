@@ -43,4 +43,26 @@ return [
         'merchant_name' => env('QRISLY_MERCHANT_NAME', 'Reloo Marketplace'),
     ],
 
+    'rajaongkir' => [
+        'api_key' => env('RAJAONGKIR_API_KEY', 'MDbaQJym248f87abf1ac249e3qdXbx5I'),
+        'base_url' => env('RAJAONGKIR_BASE_URL', 'https://rajaongkir.komerce.id/api/v1'),
+        'origin_id' => (int) env('RAJAONGKIR_DEFAULT_ORIGIN_ID', 17473),
+        'timeout' => (int) env('RAJAONGKIR_TIMEOUT', 10),
+        'verify_ssl' => env('RAJAONGKIR_VERIFY_SSL', false),
+    ],
+
+    'komerce_delivery' => [
+        'api_key' => env('KOMERCE_DELIVERY_API_KEY', 'MDbaQJym248f87abf1ac249e3qdXbx5I'),
+        'env' => env('KOMERCE_DELIVERY_ENV', 'sandbox'),
+        'base_url' => env('KOMERCE_DELIVERY_BASE_URL', 'https://api-sandbox.collaborator.komerce.id'),
+        'shipper_name' => env('KOMERCE_SHIPPER_NAME', 'Reloo Store'),
+        'shipper_phone' => env('KOMERCE_SHIPPER_PHONE', '081234567890'),
+        'shipper_email' => env('KOMERCE_SHIPPER_EMAIL', 'admin@reloo.id'),
+        'shipper_address' => env('KOMERCE_SHIPPER_ADDRESS', 'Jl. Reloo Central Hub No. 1, Jakarta'),
+        'shipper_destination_id' => (int) env('KOMERCE_SHIPPER_DESTINATION_ID', 17473),
+        'origin_pin_point' => env('KOMERCE_ORIGIN_PIN_POINT', '-6.175392, 106.827153'),
+        'timeout' => (int) env('KOMERCE_DELIVERY_TIMEOUT', 12),
+        'verify_ssl' => env('KOMERCE_DELIVERY_VERIFY_SSL', false),
+    ],
+
 ];

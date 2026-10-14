@@ -60,11 +60,27 @@
                                 <button type="button" onclick="navigator.clipboard.writeText('{{ $order->shipment->tracking_number }}'); alert('Nomor resi berhasil disalin.');" class="px-2 py-0.5 text-[10px] font-mono border border-[#EAEAEA] rounded bg-white hover:bg-[#F7F6F3] text-[#111111]" title="Salin Resi">
                                     Salin
                                 </button>
+                                <button type="button" onclick="trackCustomerAwb('{{ $order->shipment->courier_code }}', '{{ $order->shipment->tracking_number }}')" class="px-2 py-0.5 text-[10px] font-mono border border-[#111111] rounded bg-[#111111] text-white hover:bg-[#27272A] transition-colors" title="Lacak Paket">
+                                    Lacak Paket
+                                </button>
                             </div>
                         @else
                             <span class="text-[#71717A] font-mono text-xs italic">Menunggu input resi kurator</span>
                         @endif
                     </div>
+                </div>
+
+                @if($order->shipment && $order->shipment->tracking_number)
+                    <div id="customerTrackingBox" class="hidden mt-3 pt-3 border-t border-[#EAEAEA] space-y-2">
+                        <div class="flex justify-between items-center text-[10px] font-mono text-[#71717A]">
+                            <span>STATUS PENGIRIMAN LIVE (AWB: {{ $order->shipment->tracking_number }})</span>
+                            <button type="button" onclick="document.getElementById('customerTrackingBox').classList.add('hidden')" class="hover:text-[#111111]">&times; Tutup</button>
+                        </div>
+                        <div id="customerTrackingTimeline" class="space-y-2 pt-1">
+                            Memuat status pengiriman...
+                        </div>
+                    </div>
+                @endif
                 </div>
             </div>
         </div>
@@ -142,4 +158,55 @@
 
     </div>
 </div>
+
+<script>
+function trackCustomerAwb(courier, awb) {
+    const box = document.getElementById('customerTrackingBox');
+    const timelineEl = document.getElementById('customerTrackingTimeline');
+    if (!box || !timelineEl) return;
+
+    box.classList.remove('hidden');
+    timelineEl.innerHTML = '<span class="italic text-[#71717A] text-xs">Menghubungi server logistik kurir...</span>';
+
+    fetch('/api/shipping/track', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ courier: courier || 'jne', awb: awb })
+    })
+    .then(r => r.json())
+    .then(res => {
+        if ((res.meta && res.meta.code === 200) || (res.status === 'success')) {
+            const data = res.data || {};
+            const history = data.manifest || data.history || data.timeline || [];
+            if (Array.isArray(history) && history.length > 0) {
+                let html = '<div class="space-y-2 mt-2">';
+                history.forEach(item => {
+                    const date = item.manifest_date || item.date || item.created_at || '';
+                    const desc = item.manifest_description || item.description || item.note || '';
+                    const city = item.city_name || '';
+                    html += `
+                        <div class="border-l-2 border-[#111111] pl-3 py-0.5 text-xs">
+                            <div class="font-mono text-[10px] text-[#71717A]">${date} ${city ? '• ' + city : ''}</div>
+                            <div class="text-[#111111]">${desc}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                timelineEl.innerHTML = html;
+            } else {
+                timelineEl.innerHTML = '<div class="text-xs text-[#71717A]">Resi valid, namun paket belum memiliki checkpoint pergerakan terbaru di kurir.</div>';
+            }
+        } else {
+            timelineEl.innerHTML = `<div class="text-xs text-[#8C2220]">${(res.meta ? res.meta.message : res.message) || 'Status resi belum dapat diakses.'}</div>`;
+        }
+    })
+    .catch(err => {
+        timelineEl.innerHTML = '<div class="text-xs text-[#8C2220]">Koneksi ke sistem pelacakan terputus. Silakan coba kembali sesaat lagi.</div>';
+    });
+}
+</script>
 @endsection
